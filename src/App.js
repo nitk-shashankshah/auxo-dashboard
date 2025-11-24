@@ -1,7 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState , Fragment} from 'react';
-import products from './products.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faBell, faQuestion, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown } from '@fortawesome/free-solid-svg-icons';
 import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
