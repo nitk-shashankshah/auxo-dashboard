@@ -2357,7 +2357,7 @@ function MainPanel(){
             </div>
         </div>
         <div class="contentBar">
-          <div style={{padding:"10px 0px 0px 20px"}}>
+          <div style={{padding:"10px 10px 15px 20px"}}>
             <h5 class="borderBottom"> 
               <FontAwesomeIcon icon={faChartBar} /> Graphs
             </h5>
