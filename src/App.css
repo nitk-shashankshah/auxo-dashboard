@@ -200,6 +200,7 @@ ul.navMenu li:hover .iconItem{
 .sideBar {
   width:20%;
   background-color: #fafafa;
+  border-right:1px solid #f7f7f7;
   border-radius: 20px 0 0 0;
   height: 100vh;
   color:#626262;
@@ -235,7 +236,7 @@ ul.navMenu li:hover .iconItem{
 }
 
 .css-1mbxq6w-MuiTreeItem-label{
-  font-size: 14px!important;
+  font-size: 12px!important;
   padding: 5px;
 }
 
@@ -255,13 +256,11 @@ ul.navMenu li:hover .iconItem{
 }
 
 .codeBlock{
-  background:rgb(245 245 245);
-  border:1px solid rgb(228 228 228);
   padding:10px;
 }
 
 .textInfo{
-  font-size:14px;
+  font-size:12px;
   border-radius:10px;
   margin-right:10px;
 }
@@ -275,7 +274,7 @@ ul.navMenu li:hover .iconItem{
   border-radius:10px;
   border: 0px;
   width: 100%;
-  font-size:14px;
+  font-size:12px;
 }
 
 .borderBottom{
