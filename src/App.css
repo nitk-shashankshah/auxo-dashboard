@@ -1,5 +1,4 @@
 .main {
-   background:#1d1d1d;
    width:100%;
    height:100vh;
 }
@@ -111,8 +110,9 @@
 }
 
 body {
-  background:#1d1d1d;
   margin:0px;
+  background: #1d1d1d url(images/colorBand.png) no-repeat left center;
+  background-size: 3px 860px;
 }
 
 .navMenu {
