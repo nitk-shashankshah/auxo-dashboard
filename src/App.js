@@ -2317,7 +2317,7 @@ function MainPanel({products, addToCart}){
         </ul>
       </div>
       <div class="flexAround">
-          <div class="curvedPanel" style={{width:"97%"}}>
+          <div class="curvedPanel" style={{width:"96%"}}>
             <h3 class="borderBottom" > 
               <FontAwesomeIcon icon={faQuestion} /> Ask Anything
             </h3>
@@ -2471,15 +2471,18 @@ function CreateChart(){
 
 function Header({}){
   return <div class="appHeader flexRow">
+    <div class="flexRow">
+    <button class="btn"><FontAwesomeIcon icon={faBars} style={{fontSize:30}}/></button>
     <div class="logo"></div> 
+    </div>
     {/*<div class="searchBox">
       <input type="search" id="search_query" name="q" placeholder="Enter your search terms"></input>
       <button class="searchBtn"><FontAwesomeIcon icon={faSearch} /></button>
     </div>*/}
     <div class="iconButtons">
-      <button class="btn"><FontAwesomeIcon icon={faBell} /></button>
-      <button class="btn"><FontAwesomeIcon icon={faQuestion} /></button>
-      <button class="btn"><FontAwesomeIcon icon={faUser} /></button>
+      <button class="btn"><FontAwesomeIcon style={{fontSize:20}} icon={faBell} /></button>
+      <button class="btn"><FontAwesomeIcon style={{fontSize:20}} icon={faQuestion} /></button>
+      <button class="btn"><FontAwesomeIcon style={{fontSize:20}} icon={faUser} /></button>
     </div>
   </div>
 }
