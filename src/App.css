@@ -22,11 +22,12 @@
 
 .appHeader{
   width:calc(100%);
-  background-color: #0353c0;
+  background-color:#00439d;
   top:0px;
   left:50px;
   padding: 10px 10px 15px 20px;
   box-sizing: border-box;
+  border-bottom: 1px solid #fff;
 }
 
 .App-logo {
@@ -184,14 +185,14 @@ ul.navMenu li:hover .iconItem{
 }
 
 .btn{
-  background-color: #0353c0;
+  background-color: #00439d;
   color:#fff;
   font-size: 18px;
   border:none!important;
 }
 
 .btn2{
-  background-color: #0353c0;
+  background-color: #00439d;
   color:#fff;
   border:none!important;
 }
@@ -208,7 +209,7 @@ ul.navMenu li:hover .iconItem{
 }
 
 .sideBar {
-  width:25%;
+  width:23%;
 }
 
 .curvedPanel{
@@ -216,7 +217,7 @@ ul.navMenu li:hover .iconItem{
   border-radius: 30px;
   border:1px solid #dfdfdf;
   padding:0px 20px 0px 20px;
-  margin-top:10px;
+  margin-top:20px;
 }
 
 .topNavigation ul {
@@ -224,13 +225,13 @@ ul.navMenu li:hover .iconItem{
   display: flex;
   flex-direction: row;
   padding: 0px;
-  margin: 0px;
+  margin: 0px 10px;
 }
 
 .topNavigation ul li{
   float:left;
   margin-right:50px;
-  margin-top:12px;
+  margin-top:15px;
   padding-left:10px;
   font-size: 16px;
   color:#494949;
@@ -238,7 +239,7 @@ ul.navMenu li:hover .iconItem{
 
 .topNavigation{
   width: 100%;
-  height: 40px;
+  height: 40px;  
   border-bottom: 1px solid #e5e5e595;  
   border-radius: 0px 0 0 0;
 }
