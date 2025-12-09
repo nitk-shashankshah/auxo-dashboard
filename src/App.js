@@ -2317,7 +2317,7 @@ function MainPanel({products, addToCart}){
               
           </div>
           <ChatGPTInterface></ChatGPTInterface>   
-          <div style={{width:"98%", paddingBottom:0, paddingRight:10, paddingTop:20, paddingLeft:20}}>
+          <div style={{width:"98%",  paddingTop:0, textAlign: "center"}}>
             <span className="hint-text">
               &nbsp;&nbsp;Start a conversation by typing a message below. Press Enter to send, Shift + Enter for new line
             </span>
