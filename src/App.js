@@ -2309,7 +2309,7 @@ function MainPanel({toggleExpand, isExpanded}){
   return (
     <div>   
     <div class="dashboardPanel">      
-      <div style={{width:"98%", borderRadius:50}}>
+      <div style={{width:"100%", borderRadius:50}}>
           <div onClick={() => toggleExpand(isExpanded)} style={{paddingBottom:0, cursor: "pointer", paddingRight:10, paddingTop:10,marginTop:10, paddingBottom:10, paddingLeft:20 }}>
             {(isExpanded ? <FontAwesomeIcon style={{fontSize:18}} icon={faAngleDown} /> : <FontAwesomeIcon style={{fontSize:18}} icon={faAngleRight} /> )}
             <span class="borderBottom" style={{fontWeight: 100}}> 
