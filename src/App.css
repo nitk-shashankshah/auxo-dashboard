@@ -26,7 +26,7 @@
   background-color:#00439d;
   top:0px;
   left:50px;
-  padding: 10px 10px 15px 20px;
+  padding: 10px 10px 15px 0px;
   box-sizing: border-box;
   border-bottom: 1px solid #fff;
 }
@@ -166,14 +166,13 @@ ul.navMenu li:hover .iconItem{
   width: 70%;
 }
 
-.addAction{
+.addAction{  
   background-color: #0b6ec5;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   text-align: center;
   font-size: 30px;
-  font-weight: bold;
 }
 
 .searchBtn{
