@@ -14,6 +14,7 @@
   position: sticky;
   top: 45px;
   background-color: #e0e0df;
+  border-right: 1px solid #ccc;
 }
 
 .iconButtons{
@@ -67,7 +68,6 @@
 
 .treeHeading{
   font-size: 20px;
-  font-weight: 400;  
 }
 
 .logo {
@@ -109,7 +109,7 @@
   border-radius: 30px;
   background-color: #1d1d1d;
   color: #fff;
-  padding:16px;
+  padding:14px;
   font-size: 15px;
   outline:none;
   height: 30px;
@@ -122,20 +122,20 @@
 */
 
 body {
-  background:#0353c0;
+  background:#e0e0df;
   margin:0px;
 }
 
 .navMenu {
   list-style-type: none;
   padding:0px;
-  margin:25px 0px;
+  margin: 10px 8px;
 }
 
 ul.navMenu li {
   color: #525252;
   margin-left: 10px;
-  height: 70px;
+  height: 60px;
 }
 
 ul.navMenu li:hover {
@@ -168,8 +168,8 @@ ul.navMenu li:hover .iconItem{
 
 .addAction{
   background-color: #0b6ec5;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   text-align: center;
   font-size: 30px;
@@ -179,7 +179,7 @@ ul.navMenu li:hover .iconItem{
 .searchBtn{
   background-color: #1d1d1d;
   color:#fff;
-  font-size: 16px;
+  font-size: 14px;
   border:none!important;
   margin-top:5px;
 }
@@ -233,7 +233,7 @@ ul.navMenu li:hover .iconItem{
   margin-right:50px;
   margin-top:15px;
   padding-left:10px;
-  font-size: 16px;
+  font-size: 14px;
   color:#494949;
 }
 
@@ -244,12 +244,14 @@ ul.navMenu li:hover .iconItem{
 }
 
 .iconMenu{
-  font-size: 32px;
+  font-size: 24px;
 }
 
 .css-1mbxq6w-MuiTreeItem-label{
-  font-size: 16px!important;
-  padding: 5px;
+  font-size: 14px!important;
+  padding: 3px;
+  font-family: unset!important; 
+  font-weight: unset!important;
 }
 
 .workspaceGraphic{
@@ -274,7 +276,7 @@ ul.navMenu li:hover .iconItem{
 }
 
 .textInfo{
-  font-size:16px;
+  font-size:14px;
   border-radius:10px;
   margin-right:10px;
 }
@@ -288,10 +290,13 @@ ul.navMenu li:hover .iconItem{
   border-radius:10px;
   border: 0px;
   width: 100%;
-  font-size:16px;
+  font-size:14px;
+  font-weight: 100;
 }
 
 .borderBottom{
   padding-bottom:10px;
   border-bottom: 1px solid rgb(243, 238, 238);
+  font-weight: 300;
+  font-size: 18px;
 }
