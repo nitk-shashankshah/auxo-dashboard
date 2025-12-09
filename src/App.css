@@ -293,6 +293,10 @@ ul.navMenu li:hover .iconItem{
   flex-direction: column;
 }
 
+#textBox {
+  transition: all 0.3s ease;
+}
+
         .messages-section {
           flex: 1;
           overflow-y: auto;

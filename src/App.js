@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useState , Fragment} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faBell, faQuestion, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBell, faQuestion, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
 
@@ -2305,23 +2305,33 @@ const series = [
   },
 ];
 
-function MainPanel({products, addToCart}){
+function MainPanel({toggleExpand, isExpanded}){
   return (
     <div>   
     <div class="dashboardPanel">      
-      <div style={{width:"98%"}}>
-          <div style={{paddingBottom:0, paddingRight:10, paddingTop:20, paddingLeft:20}}>
+      <div style={{width:"98%", borderRadius:50}}>
+          <div onClick={() => toggleExpand(isExpanded)} style={{paddingBottom:0, cursor: "pointer", paddingRight:10, paddingTop:20, paddingLeft:20}}>
+            {(isExpanded ? <FontAwesomeIcon style={{fontSize:24}} icon={faCaretDown} /> : <FontAwesomeIcon style={{fontSize:24}} icon={faCaretRight} /> )}
             <span class="borderBottom"> 
-              Where should we begin?
-            </span>
-              
+               Click here to begin
+            </span>              
           </div>
-          <ChatGPTInterface></ChatGPTInterface>   
-          <div style={{width:"98%",  paddingTop:0, textAlign: "center"}}>
-            <span className="hint-text">
-              &nbsp;&nbsp;Start a conversation by typing a message below. Press Enter to send, Shift + Enter for new line
-            </span>
+          {
+          <div>
+            {isExpanded ? (
+            <>
+              <div style={isExpanded ? {minHeight:200, height:"unset"} : {height:0}} id="textBox">
+                <ChatGPTInterface></ChatGPTInterface>   
+              </div>
+              <div style={{width:"98%",  paddingTop:0, textAlign: "center"}}>
+                <span className="hint-text">
+                  &nbsp;&nbsp;Start a conversation by typing a message below. Press Enter to send, Shift + Enter for new line
+                </span>
+              </div>
+            </>
+            ) : ""}
           </div>
+          }
       </div>
 
       <div class="flexAround">
@@ -2530,6 +2540,7 @@ function LeftPanel({menuIcons}){
 }
 
 export default function App() {
+  const [isExpanded, setIsExpanded] = useState(1);
   const [menuIcons, setMenuIcons] = useState([{
     'name':'Home',
     'url':'./folder.png'
@@ -2553,8 +2564,8 @@ export default function App() {
     'url':'./folder.png'
   }]);  
 
-  function addMenuItem(each){
-     setMenuIcons(prevItems => [...prevItems, each.name]);
+  function toggleExpanded(isExpanded){
+     setIsExpanded(isExpanded => !isExpanded);
   };
 
   return (
@@ -2562,7 +2573,7 @@ export default function App() {
       <Header />
       <div class="flexRow">
         <LeftPanel menuIcons={menuIcons}></LeftPanel>
-        <MainPanel/>
+        <MainPanel toggleExpand={toggleExpanded} isExpanded = {isExpanded} />
       </div>
     </div>
   );
