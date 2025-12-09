@@ -298,6 +298,8 @@ ul.navMenu li:hover .iconItem{
           overflow-y: auto;
           padding: 24px 16px;
           scroll-behavior: smooth;
+          margin: 0px 0px;
+          width: 95%;
         }
 
         .messages-container {
