@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "auxo-dashboard",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -52,5 +52,5 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://nitk-shashankshah.github.io/my-app/"
+  "homepage": "https://nitk-shashankshah.github.io/auxo-dashboard/"
 }
