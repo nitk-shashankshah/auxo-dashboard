@@ -2,7 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import { useState , Fragment} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faBell, faQuestion, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faQuestion} from  '@fortawesome/free-regular-svg-icons';
 import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
 
@@ -2484,10 +2485,11 @@ function Header({}){
         <input type="search" id="search_query" name="q" placeholder="Enter your search terms"></input>
         <button class="searchBtn"><FontAwesomeIcon icon={faSearch} /></button>
       </div>*/}
-      <div class="iconButtons">
-        <button class="btn"><FontAwesomeIcon style={{fontSize:20}} icon={faBell} /></button>
-        <button class="btn"><FontAwesomeIcon style={{fontSize:20}} icon={faQuestion} /></button>
-        <button class="btn"><FontAwesomeIcon style={{fontSize:20}} icon={faUser} /></button>
+      <div>
+        {/*<button class="btn"><FontAwesomeIcon style={{fontSize:20}} icon={faBell}/></button>*/}
+        <button class="userLogin">
+           SS
+        </button>
       </div>
     </div>
    <div class="topNavigation">

@@ -14,10 +14,6 @@
   width: 70px; 
 }
 
-.iconButtons{
-  padding-top:5px;
-}
-
 .appHeader{
   width:calc(100%);
   background-color:#00345d;
@@ -281,6 +277,19 @@ ul.navMenu li:hover .iconItem{
   width: 100%;
   font-size:15px;
   font-weight: 100;
+}
+
+.iconButtons{
+  padding-top: 5px;
+}
+
+.userLogin {
+  background-color: #3e8d87;
+  border-radius: 50%;
+  width:35px;
+  border:1px solid #c5c7c7;
+  height:35px;
+  color: #fff;
 }
 
 .borderBottom{
