@@ -12,6 +12,8 @@
 .leftPanel{
   height: calc(100vh);
   width: 70px; 
+  background: rgba(255,255,255,0.5);
+  border-right: 1px solid #f1eeee;
 }
 
 .appHeader{
