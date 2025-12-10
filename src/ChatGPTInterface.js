@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send } from 'lucide-react';
 
-export default function ChatGPTInterface() {
+export default function ChatGPTInterface({toggleLoaded, isLoaded}) {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const textareaRef = useRef(null);
@@ -23,7 +23,7 @@ export default function ChatGPTInterface() {
       const userMsg = message;
       setMessages(prev => [...prev, { text: userMsg, sender: 'user' }]);
       setMessage('');
-      
+      toggleLoaded(false);
       setTimeout(() => {
         setMessages(prev => [...prev, { 
           text: `This is a simulated AI response to: "${userMsg}"`, 

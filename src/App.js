@@ -6,7 +6,7 @@ import { faBars, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAl
 import { faBell, faQuestion} from  '@fortawesome/free-regular-svg-icons';
 import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
-
+import Skeleton from "react-loading-skeleton";
 import Box from '@mui/material/Box';
 import { BarPlot } from '@mui/x-charts/BarChart';
 import { LineHighlightPlot, LinePlot } from '@mui/x-charts/LineChart';
@@ -15,8 +15,10 @@ import { AllSeriesType } from '@mui/x-charts/models';
 import { ChartsXAxis } from '@mui/x-charts/ChartsXAxis';
 import { ChartsYAxis } from '@mui/x-charts/ChartsYAxis';
 import { ChartsTooltip } from '@mui/x-charts/ChartsTooltip';
+import CardSkeleton from './CardSkeleton';
 import { ChartsAxisHighlight } from '@mui/x-charts/ChartsAxisHighlight';
 import ChatGPTInterface from './ChatGPTInterface';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const alphabetStock = [
   {
@@ -2307,8 +2309,14 @@ const series = [
 ];
 
 function MainPanel({toggleExpand, isExpanded}){
+  const [isLoaded, setIsLoaded] = useState(0);
+  
+  function toggleLoaded(isLoad){
+     setIsLoaded(isLoad => !isLoad);
+  };
+
   return (
-    <div>   
+    <>   
     <div class="dashboardPanel">      
       <div style={{width:"100%", borderRadius:50}}>
           <div style={{paddingBottom:0, cursor: "pointer", paddingRight:10, paddingTop:10,marginTop:10, paddingBottom:10, paddingLeft:20 }}>
@@ -2322,7 +2330,7 @@ function MainPanel({toggleExpand, isExpanded}){
             {isExpanded ? (
             <>
               <div style={isExpanded ? {height:"unset"} : {height:0}} id="textBox">
-                <ChatGPTInterface></ChatGPTInterface>   
+                <ChatGPTInterface toggleLoaded={toggleLoaded} isLoaded = {isLoaded}></ChatGPTInterface>   
               </div>
               <div style={{width:"98%",  paddingTop:0, textAlign: "center"}}>
                 <span className="hint-text">
@@ -2337,84 +2345,105 @@ function MainPanel({toggleExpand, isExpanded}){
 
       <div class="flexAround">
         <div class="sideBar curvedPanel margin-top-20">
+          {isLoaded ? (     
+            <>    
             <div>
-            <h3 class="borderBottom"><FontAwesomeIcon icon={faHandPointDown} />  Solution Tree</h3>
+              <h3 class="borderBottom"><FontAwesomeIcon icon={faHandPointDown} />  Solution Tree</h3>
             </div>
             <div style={{"marginLeft":"20px", "marginRight":"20px"}}>                 
-            <SimpleTreeView>             
-              <TreeItem itemId="grid" label="Workspaces">
-                <div class="flexRow flexStart">
-                  <TreeItem itemId="grid-community" label="Vikram's Workspace" />
-                </div>
-                <div class="flexRow flexStart">
-                   <TreeItem itemId="grid-premium" label="Deepesh's Workspace" />
-                </div>
-                <div class="flexRow flexStart">
-                  <TreeItem itemId="grid-pro" label="Shashank's Workspace" />
-                </div>
-              </TreeItem>
-              <TreeItem itemId="pickers" label="Integration">
-                <div class="flexRow flexStart">
-                  <TreeItem itemId="pickers-community" label="Integration 1" />
-                </div>
-                <div class="flexRow flexStart">
-                  <TreeItem itemId="pickers-pro" label="Integration 2" />
-                </div>
-              </TreeItem>
-              <TreeItem itemId="charts" label="Branches">
-                <div class="flexRow flexStart">
-                  <TreeItem itemId="charts-community" label="Branch 1" disabled />
-                </div>
-                <div class="flexRow flexStart">
-                  <TreeItem itemId="tree-view-community" label="Branch 2" />
-                </div>
-              </TreeItem>
-            </SimpleTreeView>
+              <SimpleTreeView>             
+                <TreeItem itemId="grid" label="Workspaces">
+                  <div class="flexRow flexStart">
+                    <TreeItem itemId="grid-community" label="Vikram's Workspace" />
+                  </div>
+                  <div class="flexRow flexStart">
+                    <TreeItem itemId="grid-premium" label="Deepesh's Workspace" />
+                  </div>
+                  <div class="flexRow flexStart">
+                    <TreeItem itemId="grid-pro" label="Shashank's Workspace" />
+                  </div>
+                </TreeItem>
+                <TreeItem itemId="pickers" label="Integration">
+                  <div class="flexRow flexStart">
+                    <TreeItem itemId="pickers-community" label="Integration 1" />
+                  </div>
+                  <div class="flexRow flexStart">
+                    <TreeItem itemId="pickers-pro" label="Integration 2" />
+                  </div>
+                </TreeItem>
+                <TreeItem itemId="charts" label="Branches">
+                  <div class="flexRow flexStart">
+                    <TreeItem itemId="charts-community" label="Branch 1" disabled />
+                  </div>
+                  <div class="flexRow flexStart">
+                    <TreeItem itemId="tree-view-community" label="Branch 2" />
+                  </div>
+                </TreeItem>
+              </SimpleTreeView>
             </div>
+            </>
+  ) : (<><CardSkeleton amount={1} /></>)}
         </div>
         <div class="contentBar">
           <div class="curvedPanel margin-top-20">
+            {
+            isLoaded ? (
+            <>    
             <h3 class="borderBottom"> 
               <FontAwesomeIcon icon={faChartBar} /> Graphs
             </h3>
             <p class="textInfo">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit... 
             </p>
-            <CreateChart></CreateChart>
-          </div>                   
-         
+            <CreateChart></CreateChart>            
+            </>
+            ) : 
+            (<><CardSkeleton amount={1} /></>)
+            }
+          </div>  
+
           <div class="curvedPanel margin-top-20">
-            <h3 class="borderBottom" > 
-              <FontAwesomeIcon icon={faCode} /> Code
-            </h3>
-            <p class="textInfo">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit... 
-            </p>
-            <p style={{"font-size":"12px"}}>
-              <textarea class="codeEditor"
-                value="<!DOCTYPE html>
-<html>
-<body>
+            {
+            isLoaded ? (
+            <>    
+              <h3 class="borderBottom" > 
+                <FontAwesomeIcon icon={faCode} /> Code
+              </h3>
+              <p class="textInfo">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit... 
+              </p>
+              <p style={{"font-size":"12px"}}>
+                <textarea class="codeEditor"
+                  value="<!DOCTYPE html>
+  <html>
+  <body>
 
-<h1>The code element</h1>
+  <h1>The code element</h1>
 
-<p>The HTML <code>button</code> tag defines a clickable button.</p>
+  <p>The HTML <code>button</code> tag defines a clickable button.</p>
 
-<p>The CSS <code>background-color</code> property defines the background color of an element.</p>
+  <p>The CSS <code>background-color</code> property defines the background color of an element.</p>
 
-</body>
-</html>">
-              </textarea>
-            </p>
-              
-            <p class="textInfo">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-            </p>
+  </body>
+  </html>">
+                </textarea>
+              </p>
+                
+              <p class="textInfo">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+              </p>                   
+            </>
+            ) : 
+            (<><CardSkeleton amount={1} /></>)
+            }
+
+
+           
           </div>
         </div>
       </div>
     </div>
-    </div>
+    </>
   )
 }
 
@@ -2487,7 +2516,7 @@ function Header({}){
       </div>*/}
       <div>
         {/*<button class="btn"><FontAwesomeIcon style={{fontSize:20}} icon={faBell}/></button>*/}
-        <button class="userLogin">
+        <button className="userLogin">
            SS
         </button>
       </div>
