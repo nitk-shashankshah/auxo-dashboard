@@ -485,13 +485,17 @@ ul.navMenu li:hover .iconItem{
           background: #9ca3af;
         }
 
+.card-skeleton {
+  padding: 20px;
+}
+/*
 .card-container{
   max-width:600px;
   margin:0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
-
+  padding:20px;
   .card{
     padding:.35rem;
     border:1px solid #c6c6c6;
@@ -531,12 +535,7 @@ ul.navMenu li:hover .iconItem{
       }
     }
   }
-
-  .card-skeleton{
-    display:flex;
-    gap:50px;   
-  }
-}
+}*/
 
 
 
