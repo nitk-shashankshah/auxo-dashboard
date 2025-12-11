@@ -28,6 +28,13 @@
   z-index: 2;
 }
 
+
+.dropdown-menu-right {
+  right: 0;
+  width: 150px; 
+  left: unset!important;
+}
+
 .dropdown-item {
   padding: 10px 10px;
   display: flex;

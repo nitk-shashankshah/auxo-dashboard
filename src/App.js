@@ -19,6 +19,7 @@ import CardSkeleton from './CardSkeleton';
 import { ChartsAxisHighlight } from '@mui/x-charts/ChartsAxisHighlight';
 import ChatGPTInterface from './ChatGPTInterface';
 import 'react-loading-skeleton/dist/skeleton.css'
+import UserLogin from './UserLogin';
 
 const alphabetStock = [
   {
@@ -2516,10 +2517,12 @@ function Header({}){
       </div>*/}
       <div>
         {/*<button class="btn"><FontAwesomeIcon style={{fontSize:20}} icon={faBell}/></button>*/}
-        <button className="userLogin">
+        {/*<button className="userLogin">
            SS
-        </button>
+        </button>*/}
+        <UserLogin />
       </div>
+
     </div>
    <div class="topNavigation">
         <ul>
