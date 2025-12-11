@@ -67,6 +67,7 @@
   height:100px;
   width:100%;
   outline:none;
+  resize: none;
   border:none!important;
 }
 
