@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send } from 'lucide-react';
+import Dropdown from './Dropdown';
 
 export default function ChatGPTInterface({toggleLoaded, isLoaded}) {
   const [message, setMessage] = useState('');
@@ -43,23 +44,25 @@ export default function ChatGPTInterface({toggleLoaded, isLoaded}) {
   return (
     <>
           <div className="input-box">
-              <textarea
-                ref={textareaRef}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder="Message ChatGPT..."
-                rows={1}
-                id="queryText"
-                className="curvedPanel fullWidth margin-top-20 padding-20"                
-              />
+              <div className="curvedPanel fullWidth margin-top-20 padding-20">
+                <textarea
+                  ref={textareaRef}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Message ChatGPT..."
+                  rows={1}
+                  id="queryText"                             
+                />
+                <Dropdown />
+              </div>
+
               <button
                 onClick={sendMessage}
-                disabled={!message.trim()}
                 className="send-btn"
               >
                 <Send size={18} />
-              </button>           
+              </button>            
           </div>
           {messages.length === 0 ? (
                     <p></p>

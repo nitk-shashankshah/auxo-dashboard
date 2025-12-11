@@ -198,6 +198,10 @@ ul.navMenu li:hover .iconItem{
   box-sizing: border-box;
 }
 
+.padding-10{
+  padding:5px;
+}
+
 .fullWidth {
   width:100%;
   min-height: 100px;
@@ -394,15 +398,9 @@ ul.navMenu li:hover .iconItem{
 
         #queryText {
           outline:none;
+          width:100%;
+          border:none!important;
         }
-      
-         #queryText:focus {
-            /* Change the border color */
-            border-color: #007bff;
-            /* Add a box shadow for a glowing effect */
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-            transition: all 0.2s ease;
-         }
 
         .input-box {
           display: flex;
@@ -488,55 +486,4 @@ ul.navMenu li:hover .iconItem{
 .card-skeleton {
   padding: 20px;
 }
-/*
-.card-container{
-  max-width:600px;
-  margin:0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-  padding:20px;
-  .card{
-    padding:.35rem;
-    border:1px solid #c6c6c6;
-    border-radius:8px;
-    display: flex;
-    gap:10px;
-
-    .img-holder{
-      min-width:60px;
-      height:60px;
-      img{
-        border-radius: 50%;
-        width:100%;
-        height:100%;
-        object-fit:cover;
-        object-position: 50% 50%;
-      }
-    }
-
-    .desc{
-      span{
-        h3,p{
-          margin:0;
-        }
-        h3{
-          font-size:14px;
-          color:#010101;
-        }
-        p{
-          font-size:11px;
-          color:#BDBDBD;
-        }
-      }
-
-      .bio{
-        font-size: 12px;
-      }
-    }
-  }
-}*/
-
-
-
 

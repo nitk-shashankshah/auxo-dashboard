@@ -2316,7 +2316,7 @@ function MainPanel({toggleExpand, isExpanded}){
   };
 
   return (
-    <>   
+    <>
     <div class="dashboardPanel">      
       <div style={{width:"100%", borderRadius:50}}>
           <div style={{paddingBottom:0, cursor: "pointer", paddingRight:10, paddingTop:10,marginTop:10, paddingBottom:10, paddingLeft:20 }}>
