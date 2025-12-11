@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Send } from 'lucide-react';
 import Dropdown from './Dropdown';
 
-export default function ChatGPTInterface({toggleLoaded, isLoaded}) {
+export default function ChatGPTInterface({toggleLoaded, toggleDropDown, isLoaded, hideDropDown}) {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const textareaRef = useRef(null);
@@ -54,8 +54,8 @@ export default function ChatGPTInterface({toggleLoaded, isLoaded}) {
                   rows={1}
                   id="queryText"                             
                 />
-                <div class="flexRow">
-                  <Dropdown />
+                <div class="flexRow borderTop">
+                  <Dropdown hideDropDown={hideDropDown} toggleDropDown={toggleDropDown}/>
                   <button
                     onClick={sendMessage}
                     className="send-btn"

@@ -11,7 +11,7 @@
 
 .leftPanel{
   height: calc(100vh);
-  width: 50px; 
+  width: 55px; 
 }
 
 .appHeader{
@@ -143,7 +143,7 @@ ul.navMenu li:hover .iconItem{
   height: 38px;
   border-radius: 50%;
   text-align: center;
-  font-size: 30px;
+  font-size: 28px;
 }
 
 .searchBtn{
@@ -194,6 +194,11 @@ ul.navMenu li:hover .iconItem{
   margin-top:20px;
 }
 
+.margin-10{
+  margin-top:10px;
+  margin-left:10px;
+}
+
 .margin-top-5 {
   margin-top:5px;
 }
@@ -205,6 +210,11 @@ ul.navMenu li:hover .iconItem{
 
 .padding-5{
   padding:15px 15px 15px 15px;
+}
+
+.borderTop{
+  border-top:1px solid #e7e7e7;
+  padding-top:10px;
 }
 
 .fullWidth {
@@ -296,7 +306,7 @@ ul.navMenu li:hover .iconItem{
   background-color: #3e8d87;
   border-radius: 50%;
   width:35px;
-  border:2px solid #fff;
+  border:2px solid #8fa6b8;
   height:35px;
   color: #fff;
   cursor:pointer;

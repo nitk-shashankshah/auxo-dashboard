@@ -2308,7 +2308,7 @@ const series = [
   },
 ];
 
-function MainPanel({toggleExpand, isExpanded}){
+function MainPanel({toggleExpand, hideDropDown, isExpanded, toggleDropDown}){
   const [isLoaded, setIsLoaded] = useState(0);
   
   function toggleLoaded(isLoad){
@@ -2317,7 +2317,7 @@ function MainPanel({toggleExpand, isExpanded}){
 
   return (
     <>
-    <div class="dashboardPanel">      
+    <div class="dashboardPanel">
       <div style={{width:"100%", borderRadius:50}}>
           <div style={{paddingBottom:0, cursor: "pointer", paddingRight:10, paddingTop:10,marginTop:10, paddingBottom:10, paddingLeft:20 }}>
             {(isExpanded ? <FontAwesomeIcon style={{fontSize:18}} icon={faAngleDown} /> : <FontAwesomeIcon style={{fontSize:18}} icon={faAngleRight} /> )}
@@ -2330,7 +2330,7 @@ function MainPanel({toggleExpand, isExpanded}){
             {isExpanded ? (
             <>
               <div style={isExpanded ? {height:"unset"} : {height:0}} id="textBox">
-                <ChatGPTInterface toggleLoaded={toggleLoaded} isLoaded = {isLoaded}></ChatGPTInterface>   
+                <ChatGPTInterface toggleDropDown={toggleDropDown} hideDropDown = {hideDropDown} toggleLoaded={toggleLoaded} isLoaded = {isLoaded}></ChatGPTInterface>   
               </div>
               <div style={{width:"98%",  paddingTop:0, textAlign: "center"}}>
                 <span className="hint-text">
@@ -2571,6 +2571,7 @@ function LeftPanel({menuIcons}){
 
 export default function App() {
   const [isExpanded, setIsExpanded] = useState(1);
+  const [hideDropDown, setHideDropDown] = useState(false);
   const [menuIcons, setMenuIcons] = useState([{
     'name':'Home',
     'url':'./folder.png'
@@ -2595,15 +2596,24 @@ export default function App() {
   }]);  
 
   function toggleExpanded(isExpanded){
-     setIsExpanded(isExpanded => !isExpanded);
+    setIsExpanded(isExpanded => !isExpanded);
+  };
+
+  function toggleDropDown(){
+    setHideDropDown(!hideDropDown);
   };
 
   return (
-    <div className="main">
+    <div className="main" onClick={(event) => {
+      if (event.target.className!=="dropdown-item"){
+       toggleDropDown(0);
+      };
+      event.stopPropagation();
+    }}>
       <Header />
       <div class="flexRow">
         <LeftPanel menuIcons={menuIcons}></LeftPanel>
-        <MainPanel toggleExpand={toggleExpanded} isExpanded = {isExpanded} />
+        <MainPanel toggleExpand={toggleExpanded} toggleDropDown={toggleDropDown} hideDropDown={hideDropDown} isExpanded = {isExpanded} />
       </div>
     </div>
   );

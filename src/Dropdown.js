@@ -1,21 +1,27 @@
-import React, {useState, useRef } from "react";
+import React, {useState, useRef, useEffect} from "react";
 import "./Dropdown.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown , faFile, faImage, faPaperclip, faSun } from '@fortawesome/free-solid-svg-icons';
 import { Send, Paperclip, X } from 'lucide-react';
 
-const Dropdown = () => {
-  const [open, setOpen] = useState(false);
+const Dropdown = ({hideDropDown, toggleDropDown}) => {
+  const [open, setOpen] = useState(hideDropDown);
   const [message, setMessage] = useState('');
   const [files, setFiles] = useState([]);
   const [messages, setMessages] = useState([]);
   const fileInputRef = useRef(null);
   const textareaRef = useRef(null);
+  
+  useEffect(() => {
+    setOpen(hideDropDown);
+  }, [hideDropDown]);
+
 
   const handleFileSelect = (e) => {
     const selectedFiles = Array.from(e.target.files);
     setFiles(prev => [...prev, ...selectedFiles]);
     setOpen(false);
+    toggleDropDown(false);
   };
 
   const removeFile = (index) => {
@@ -51,40 +57,43 @@ const Dropdown = () => {
   };
 
   return (
-    <div className="dropdown">
-      <button className="dropdown-btn" onClick={() => setOpen(!open)}>
-        <FontAwesomeIcon style={{fontSize:12}} icon={faPaperclip} /> Attach  <FontAwesomeIcon style={{fontSize:12}} icon={faAngleDown} /> 
-      </button>
+    <div class="flexRow">
+      <div className="dropdown">
+        <button className="dropdown-btn" onClick={() => {setOpen(!open); toggleDropDown();}}>
+          <FontAwesomeIcon style={{fontSize:12}} icon={faPaperclip} /> Attach  <FontAwesomeIcon style={{fontSize:12}} icon={faAngleDown} /> 
+        </button>
 
-      {open && (
-        <ul className="dropdown-menu">
-          <li className="dropdown-item"><FontAwesomeIcon style={{fontSize:12, marginTop:2}} icon={faFile}/>          
-           <input
-              ref={fileInputRef}
-              type="file"
-              multiple
-              onChange={handleFileSelect}
-              className="hidden"
-              visibility="hidden"
-           />          
-          </li>
-          <li className="dropdown-item"><FontAwesomeIcon style={{fontSize:12, marginTop:2}} icon={faImage} /> &nbsp;Image</li>
-          <li className="dropdown-item"><FontAwesomeIcon style={{fontSize:12, marginTop:2}} icon={faSun} /> &nbsp;Others</li>         
-        </ul>
-      )}
-
+        {open && (
+          <ul className="dropdown-menu">
+            <li className="dropdown-item"><FontAwesomeIcon style={{fontSize:12, marginTop:2}} icon={faFile}/>          
+            <input
+                ref={fileInputRef}
+                type="file"
+                multiple
+                onChange={handleFileSelect}
+                className="hidden"
+                visibility="hidden"
+            />          
+            </li>
+            <li className="dropdown-item"><FontAwesomeIcon style={{fontSize:12, marginTop:2}} icon={faImage} /> &nbsp;Image</li>
+            <li className="dropdown-item"><FontAwesomeIcon style={{fontSize:12, marginTop:2}} icon={faSun} /> &nbsp;Others</li>         
+          </ul>
+        )}     
+      </div>
+      <div class="flexRow">
       {files.map((file, idx) => (
-                <div key={idx} className="margin-top-20">
-                  <Paperclip size={14} /> &nbsp;
-                  <span className="text-gray-700">{file.name}</span>
-                  &nbsp;<button
-                  style={{background:"transparent", border:"1px solid #ccc", borderRadius:30}}                  
-                    onClick={() => removeFile(idx)}                                    
-                  >
-                    <X size={12} />
-                  </button>
-                </div>
-        ))}       
+                  <div key={idx} className="margin-10">
+                    <Paperclip size={14} /> &nbsp;
+                    <span className="text-gray-700">{file.name}</span>
+                    &nbsp;<button
+                    style={{background:"transparent", border:"1px solid #ccc", borderRadius:30}}                  
+                      onClick={() => removeFile(idx)}                                    
+                    >
+                      <X size={12} />
+                    </button>
+                  </div>
+          ))}
+      </div>
     </div>
   );
 };
