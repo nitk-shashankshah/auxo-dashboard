@@ -78,6 +78,7 @@ const Dropdown = () => {
                   <Paperclip size={14} /> &nbsp;
                   <span className="text-gray-700">{file.name}</span>
                   &nbsp;<button
+                  style={{background:"transparent", border:"1px solid #ccc", borderRadius:30}}                  
                     onClick={() => removeFile(idx)}                                    
                   >
                     <X size={12} />
