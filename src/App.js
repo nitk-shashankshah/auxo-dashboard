@@ -2,8 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useState , Fragment} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import { faBell, faQuestion} from  '@fortawesome/free-regular-svg-icons';
+import { faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
 import Skeleton from "react-loading-skeleton";
@@ -2516,10 +2515,7 @@ function Header({}){
         <button class="searchBtn"><FontAwesomeIcon icon={faSearch} /></button>
       </div>*/}
       <div>
-        {/*<button class="btn"><FontAwesomeIcon style={{fontSize:20}} icon={faBell}/></button>*/}
-        {/*<button className="userLogin">
-           SS
-        </button>*/}
+        <button class="btn"><FontAwesomeIcon style={{fontSize:18, marginTop: 5}} icon={faBell}/></button>
         <UserLogin />
       </div>
 

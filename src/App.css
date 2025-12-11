@@ -167,6 +167,7 @@ ul.navMenu li:hover .iconItem{
   border:none!important;
 }
 
+
 #search_query{
   width:400px;
 }
@@ -184,7 +185,7 @@ ul.navMenu li:hover .iconItem{
 
 .curvedPanel{
   background-color: #fff;
-  border-radius: 30px;
+  border-radius: 20px;
   border:1px solid #dfdfdf;
   padding:0px 20px 0px 20px;
 }
@@ -193,13 +194,17 @@ ul.navMenu li:hover .iconItem{
   margin-top:20px;
 }
 
+.margin-top-5 {
+  margin-top:5px;
+}
+
 .padding-20{
   padding:20px;
   box-sizing: border-box;
 }
 
-.padding-10{
-  padding:5px;
+.padding-5{
+  padding:15px 15px 15px 15px;
 }
 
 .fullWidth {
@@ -396,11 +401,6 @@ ul.navMenu li:hover .iconItem{
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
         }
 
-        #queryText {
-          outline:none;
-          width:100%;
-          border:none!important;
-        }
 
         .input-box {
           display: flex;
@@ -441,7 +441,6 @@ ul.navMenu li:hover .iconItem{
           justify-content: center;
           cursor: pointer;
           transition: all 0.2s ease;
-          margin: 4px;
           flex-shrink: 0;
         }
 

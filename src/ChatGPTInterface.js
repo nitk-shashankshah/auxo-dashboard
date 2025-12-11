@@ -44,25 +44,26 @@ export default function ChatGPTInterface({toggleLoaded, isLoaded}) {
   return (
     <>
           <div className="input-box">
-              <div className="curvedPanel fullWidth margin-top-20 padding-20">
+              <div className="curvedPanel fullWidth padding-5">
                 <textarea
                   ref={textareaRef}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Message ChatGPT..."
+                  placeholder="Ask ARM..."
                   rows={1}
                   id="queryText"                             
                 />
-                <Dropdown />
-              </div>
-
-              <button
-                onClick={sendMessage}
-                className="send-btn"
-              >
-                <Send size={18} />
-              </button>            
+                <div class="flexRow">
+                  <Dropdown />
+                  <button
+                    onClick={sendMessage}
+                    className="send-btn"
+                  >
+                    <Send size={18} />
+                  </button>
+                </div>     
+              </div>          
           </div>
           {messages.length === 0 ? (
                     <p></p>

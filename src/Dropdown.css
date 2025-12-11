@@ -65,6 +65,9 @@
 
 #queryText{
   height:100px;
+  width:100%;
+  outline:none;
+  border:none!important;
 }
 
 input[type="file"]::file-selector-button {
