@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown , faFile, faImage, faPaperclip, faSun } from '@fortawesome/free-solid-svg-icons';
 import { Send, Paperclip, X } from 'lucide-react';
 
-const Dropdown = ({hideDropDown, toggleDropDown}) => {
-  const [open, setOpen] = useState(hideDropDown);
+const Dropdown = ({count, toggleDropDown}) => {
+  const [open, setOpen] = useState(count);
   const [message, setMessage] = useState('');
   const [files, setFiles] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -13,15 +13,15 @@ const Dropdown = ({hideDropDown, toggleDropDown}) => {
   const textareaRef = useRef(null);
   
   useEffect(() => {
-    setOpen(hideDropDown);
-  }, [hideDropDown]);
+    setOpen(count);
+  }, [count]);
 
 
   const handleFileSelect = (e) => {
     const selectedFiles = Array.from(e.target.files);
     setFiles(prev => [...prev, ...selectedFiles]);
-    setOpen(false);
-    toggleDropDown(false);
+    //setOpen(false);
+    //toggleDropDown(false);
   };
 
   const removeFile = (index) => {
@@ -59,7 +59,7 @@ const Dropdown = ({hideDropDown, toggleDropDown}) => {
   return (
     <div class="flexRow">
       <div className="dropdown">
-        <button className="dropdown-btn" onClick={() => {setOpen(!open); toggleDropDown();}}>
+        <button className="dropdown-btn" onClick={() => {/*setOpen(!open);*/ toggleDropDown(true);}}>
           <FontAwesomeIcon style={{fontSize:12}} icon={faPaperclip} /> Attach  <FontAwesomeIcon style={{fontSize:12}} icon={faAngleDown} /> 
         </button>
 

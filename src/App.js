@@ -8,9 +8,10 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import UserLogin from './UserLogin';
 import ExistingProjects from './ExistingProjects';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import Dropdown from './Dropdown';
+import { counter } from '@fortawesome/fontawesome-svg-core';
 
-
-function MainPanel({toggleExpand, hideDropDown, isExpanded, toggleDropDown}){
+function MainPanel({toggleExpand, count, isExpanded, toggleDropDown}){
   const [isLoaded, setIsLoaded] = useState(0);
   
   function toggleLoaded(isLoad){
@@ -32,7 +33,7 @@ function MainPanel({toggleExpand, hideDropDown, isExpanded, toggleDropDown}){
             {isExpanded ? (
             <>
               <div style={isExpanded ? {height:"unset"} : {height:0}} id="textBox">
-                <ChatGPTInterface toggleDropDown={toggleDropDown} hideDropDown = {hideDropDown} toggleLoaded={toggleLoaded} isLoaded = {isLoaded}></ChatGPTInterface>   
+                <ChatGPTInterface toggleDropDown={toggleDropDown} count = {count} toggleLoaded={toggleLoaded} isLoaded = {isLoaded}></ChatGPTInterface>   
               </div>
               <div style={{width:"98%",  paddingTop:0, textAlign: "center"}}>
                 <span className="hint-text">
@@ -49,7 +50,7 @@ function MainPanel({toggleExpand, hideDropDown, isExpanded, toggleDropDown}){
   )
 }
 
-function Header({hideDropDown, toggleDropDown}){
+function Header({toggleDropDown, count}){
   return <div>
     <div class="appHeader flexRow">
       <div class="flexRow">
@@ -62,11 +63,11 @@ function Header({hideDropDown, toggleDropDown}){
       </div>*/}
       <div>
         <button class="btn"><FontAwesomeIcon style={{fontSize:18, marginTop: 5}} icon={faBell}/></button>
-        <UserLogin hideDropDown={hideDropDown} toggleDropDown={toggleDropDown}/>
+        <UserLogin count={count} toggleDropDown={toggleDropDown}/>
       </div>
 
     </div>
-   <div class="topNavigation">
+    <div class="topNavigation">
         <ul>
           <li><a>Business Discovery</a></li>
           <li><a>Deep Researcher</a></li>
@@ -88,15 +89,37 @@ function LeftPanel({menuIcons}){
         </div>
       </li>
       <li class="iconMenu">
-        <Link to="/existing"><FontAwesomeIcon style={{"color" : '#fff'}} icon={faList} /></Link>        
+        <Link to="/existing"><FontAwesomeIcon style={{"color" : '#575757ff'}} icon={faList} /></Link>        
       </li>      
+      <li class="iconMenu">    
+        <FontAwesomeIcon icon={faCalendarAlt} />
+      </li>
+      <li class="iconMenu">
+        <FontAwesomeIcon icon={faCoffee} />
+      </li>
     </ul>}
   </div>
 }
 
 export default function App() {
   const [isExpanded, setIsExpanded] = useState(1);
-  const [hideDropDown, setHideDropDown] = useState(false);
+  const [countUser, setCountUser] = useState(false);
+  const [count, setCount] = useState(false);
+
+  function toggleDropDown(val) {
+    setCount(val);
+  }
+
+  function toggleDropDownUser(val) {
+    setCountUser(val);
+  }
+
+
+  function toggleExpanded(isExpanded){
+    setIsExpanded(isExpanded => !isExpanded);
+  };
+
+
   const [menuIcons, setMenuIcons] = useState([{
     'name':'Home',
     'url':'./folder.png'
@@ -120,29 +143,21 @@ export default function App() {
     'url':'./folder.png'
   }]);  
 
-  function toggleExpanded(isExpanded){
-    setIsExpanded(isExpanded => !isExpanded);
-  };
-
-  function toggleDropDown(){
-    setHideDropDown(!hideDropDown);
-  };
-
   return (
     <div className="main" onClick={(event) => {
-      if (event.target.className!=="dropdown-item"){
-       toggleDropDown(0);
+      if (event.target.className!=="dropdown-item" && event.target.className!=="userLogin" && event.target.className!=="dropdown-btn"){
+        toggleDropDown(false);
+        toggleDropDownUser(false);
       };
       event.stopPropagation();
     }}>
-      <Header toggleDropDown={toggleDropDown} hideDropDown={hideDropDown} />
-     
+      <Header toggleDropDown={toggleDropDownUser} count={countUser} />
 
       <BrowserRouter>
        <div class="flexRow">
         <LeftPanel menuIcons={menuIcons}></LeftPanel>
         <Routes>
-        <Route path="/" element={<MainPanel toggleExpand={toggleExpanded} toggleDropDown={toggleDropDown} hideDropDown={hideDropDown} isExpanded = {isExpanded} />} />
+        <Route path="/" element={<MainPanel toggleExpand={toggleExpanded} toggleDropDown={toggleDropDown} count={count} isExpanded = {isExpanded} />} />
         <Route path="/existing" element={<ExistingProjects />} />
         </Routes>
         </div>     

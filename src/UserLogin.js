@@ -4,16 +4,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown , faFile, faImage, faPaperclip, faSun } from '@fortawesome/free-solid-svg-icons';
 import { Send, Paperclip, X } from 'lucide-react';
 
-const UserLogin = ({hideDropDown, toggleDropDown}) => {
-  const [open, setOpen] = useState(hideDropDown);
+const UserLogin = ({count, toggleDropDown}) => {
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    setOpen(hideDropDown);
-  }, [hideDropDown]);
+    setOpen(count);
+  }, [count]);
 
   return (
     <div className="dropdown">
-      <button className="userLogin" onClick={() => {setOpen(!open); toggleDropDown();}}>
+      <button className="userLogin" onClick={() => {toggleDropDown(true);}}>
         SS
       </button>
 
