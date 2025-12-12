@@ -84,7 +84,17 @@
   justify-content: space-between;
 }
 
+
+.flexVertical{
+  clear:both;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+}
+
 .flexAround{
+  clear:both;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
