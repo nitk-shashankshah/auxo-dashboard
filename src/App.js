@@ -54,7 +54,7 @@ function Header({toggleDropDown, count}){
   return <div>
     <div class="appHeader flexRow">
       <div class="flexRow">
-      <button class="btn"><FontAwesomeIcon icon={faBars} style={{fontSize:30}}/></button>
+      <button class="btn"><FontAwesomeIcon icon={faBars} style={{fontSize:24}}/></button>
       <div class="logo"></div> 
       </div>
       {/*<div class="searchBox">
@@ -75,7 +75,7 @@ function LeftPanel(){
     {<ul class="navMenu">
       <li>
         <div class="addAction">
-        <Link to="/"><FontAwesomeIcon style={{"color" : '#fff', fontSize: 18}} icon={faPlus} /></Link>
+        <Link to="/"><FontAwesomeIcon style={{"color" : '#fff', fontSize: 14, marginTop:5}} icon={faPlus} /></Link>
         </div>
       </li>
       <li class="iconMenu">

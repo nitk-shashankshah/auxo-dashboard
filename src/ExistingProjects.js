@@ -14,7 +14,7 @@ import { ChartsYAxis } from '@mui/x-charts/ChartsYAxis';
 import { ChartsTooltip } from '@mui/x-charts/ChartsTooltip';
 import CardSkeleton from './CardSkeleton';
 import { ChartsAxisHighlight } from '@mui/x-charts/ChartsAxisHighlight';
-import { faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown, faList } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown, faList, faFile } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ChatGPTInterface from './ChatGPTInterface';
 import outoutData from './ContextState.json';
@@ -34,19 +34,48 @@ export default function ExistingProjects({toggleLoaded, toggleDropDown, isLoaded
 
   return (
     <>
-      <div class="flexVertical">     
+      <div class="flexVertical">
         <div class="flexAround">
+          <div class="projectPanel margin-10">
+            {
+            isLoaded ? (
+            <>    
+              <h3 class="borderBottom" > 
+                <FontAwesomeIcon icon={faCode} /> Projects
+              </h3>
+              <SimpleTreeView expandedItems={["grid"]}>   
+                <TreeItem itemId="grid" label="Branches">
+                  {['Wine Classification','Airlines Classification', 'Sales Predictions'].map(each => {
+                  return (
+                    <>
+                      <div class="flexRow flexStart">
+                         <TreeItem itemId={each} label={each} />
+                      </div>                    
+                    </>
+                  );
+                  })}   
+                </TreeItem>
+              </SimpleTreeView>                     
+            </>
+            ) : 
+            (<><CardSkeleton amount={1} /></>)
+            }           
+          </div>
+          
         <div class="sideBar margin-10 curvedPanel">
           {isLoaded ? (     
             <>
-            <div style={{"marginRight":"20px", "height":"calc(100vh - 110px)"}}>                 
-              <SimpleTreeView>   
+            <div style={{"marginRight":"20px", "height":"calc(100vh - 110px)"}}>     
+              <h3 class="borderBottom" > 
+                <FontAwesomeIcon icon={faCode} /> Parameters
+              </h3>            
+              <SimpleTreeView expandedItems={["grid"]}>   
                 <TreeItem itemId="grid" label="Solution Tree">
                   {Object.keys(outoutData).map(each => {
                   return (
                     <>
                       <div class="flexRow flexStart">
-                        <TreeItem onClick={()=>{setDetails(outoutData[each]);}} itemId={each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
+                         <TreeItem onClick={()=>{setDetails(outoutData[each]);}} itemId={each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
                       </div>                    
                     </>
                   );
@@ -65,9 +94,9 @@ export default function ExistingProjects({toggleLoaded, toggleDropDown, isLoaded
             <h3 class="borderBottom"> 
               <FontAwesomeIcon icon={faChartBar} /> Analysis
             </h3>           
-
-            <JsonList data={details} />
-
+            <p class="textInfo">
+              <JsonList data={details} />
+            </p>
             <ChatGPTInterface style={{position: "absolute", bottom: "0px"}} toggleDropDown={()=>{}} count = {0} toggleLoaded={true} isLoaded = {0}></ChatGPTInterface>   
                    
             </>
@@ -76,41 +105,6 @@ export default function ExistingProjects({toggleLoaded, toggleDropDown, isLoaded
             }
           </div>  
 
-          {/*<div class="curvedPanel margin-top-20">
-            {
-            isLoaded ? (
-            <>    
-              <h3 class="borderBottom" > 
-                <FontAwesomeIcon icon={faCode} /> Code
-              </h3>
-              <p class="textInfo">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit... 
-              </p>
-              <p style={{"font-size":"12px"}}>
-                <textarea class="codeEditor"
-                  value="<!DOCTYPE html>
-  <html>
-  <body>
-
-  <h1>The code element</h1>
-
-  <p>The HTML <code>button</code> tag defines a clickable button.</p>
-
-  <p>The CSS <code>background-color</code> property defines the background color of an element.</p>
-
-  </body>
-  </html>">
-                </textarea>
-              </p>
-                
-              <p class="textInfo">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-              </p>                   
-            </>
-            ) : 
-            (<><CardSkeleton amount={1} /></>)
-            }           
-          </div>*/}
         </div>
       </div>
       </div>
