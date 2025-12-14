@@ -66,21 +66,11 @@ function Header({toggleDropDown, count}){
         <UserLogin count={count} toggleDropDown={toggleDropDown}/>
       </div>
 
-    </div>
-    <div class="topNavigation">
-        <ul>
-          <li><a>Business Discovery</a></li>
-          <li><a>Deep Researcher</a></li>
-          <li><a>Data Discovery and Master Data Preperation</a></li>
-          <li><a>EDA Engine</a></li>
-          <li><a>ML Engine</a></li>
-          <li><a>Memory Bank</a></li>
-        </ul>
-    </div>
+    </div>  
   </div>
 }
 
-function LeftPanel({menuIcons}){
+function LeftPanel(){
   return <div class="leftPanel">
     {<ul class="navMenu">
       <li>
@@ -89,13 +79,13 @@ function LeftPanel({menuIcons}){
         </div>
       </li>
       <li class="iconMenu">
-        <Link to="/existing"><FontAwesomeIcon style={{"color" : '#575757ff'}} icon={faList} /></Link>        
+        <Link to="/existing" ><FontAwesomeIcon style={{"color" : 'rgba(255,255,255,0.5)',  marginLeft:5, fontSize: 20}}  icon={faList} /></Link>
       </li>      
       <li class="iconMenu">    
-        <FontAwesomeIcon icon={faCalendarAlt} />
+        <FontAwesomeIcon icon={faCalendarAlt}  style={{ marginLeft:5 }}/>
       </li>
       <li class="iconMenu">
-        <FontAwesomeIcon icon={faCoffee} />
+        <FontAwesomeIcon icon={faCoffee}  style={{ marginLeft:5 }}/>
       </li>
     </ul>}
   </div>
@@ -144,25 +134,39 @@ export default function App() {
   }]);  
 
   return (
-    <div className="main" onClick={(event) => {
-      if (event.target.className!=="dropdown-item" && event.target.className!=="userLogin" && event.target.className!=="dropdown-btn"){
-        toggleDropDown(false);
-        toggleDropDownUser(false);
-      };
-      event.stopPropagation();
-    }}>
-      <Header toggleDropDown={toggleDropDownUser} count={countUser} />
-
-      <BrowserRouter>
-       <div class="flexRow">
-        <LeftPanel menuIcons={menuIcons}></LeftPanel>
-        <Routes>
-        <Route path="/" element={<MainPanel toggleExpand={toggleExpanded} toggleDropDown={toggleDropDown} count={count} isExpanded = {isExpanded} />} />
-        <Route path="/existing" element={<ExistingProjects />} />
-        </Routes>
-        </div>     
+    <>
+    <Header toggleDropDown={toggleDropDownUser} count={countUser} />
+    <div class="flexRow">
+     <BrowserRouter>
+     <LeftPanel />
+     <div className="main" onClick={(event) => {
+          if (event.target.className!=="dropdown-item" && event.target.className!=="userLogin" && event.target.className!=="dropdown-btn"){
+            toggleDropDown(false);
+            toggleDropDownUser(false);
+          };
+          event.stopPropagation();
+        }}>
+        <div class="flexRow">
+            <div class="topNavigation">
+            <ul>
+              <li><a>Business Discovery</a></li>
+              <li><a>Deep Researcher</a></li>
+              <li><a>Data Discovery and Master Data Preperation</a></li>
+              <li><a>EDA Engine</a></li>
+              <li><a>ML Engine</a></li>
+              <li><a>Memory Bank</a></li>
+            </ul>
+            </div>        
+        </div>
+        <div class="flexRow">
+            <Routes>
+                <Route path="/" element={<MainPanel toggleExpand={toggleExpanded} toggleDropDown={toggleDropDown} count={count} isExpanded = {isExpanded} />} />
+                <Route path="/existing" element={<ExistingProjects isLoaded={true} />} />
+            </Routes>                         
+        </div>
+      </div>
       </BrowserRouter>
-
     </div>
+    </>    
   );
 }
