@@ -44,7 +44,7 @@ export default function ChatGPTInterface({toggleLoaded, toggleDropDown, isLoaded
   return (
     <>
           <div className="input-box">
-              <div className="curvedPanel fullWidth padding-5">
+              <div className="curvedPanel fullWidth padding-5 chatTextBox">
                 <textarea
                   ref={textareaRef}
                   value={message}
