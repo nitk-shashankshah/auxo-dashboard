@@ -18,7 +18,10 @@ import { faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCa
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ChatGPTInterface from './ChatGPTInterface';
 import outoutData from './ContextState.json';
+import final_report from './final_report.json';
+import descriptionFile from './description.md';
 import JsonList from './JsonList';
+import ReactMarkdown from 'react-markdown';
 
 export default function ExistingProjects({toggleLoaded, toggleDropDown, isLoaded, count}) {
   const [message, setMessage] = useState('');
@@ -26,7 +29,13 @@ export default function ExistingProjects({toggleLoaded, toggleDropDown, isLoaded
   const textareaRef = useRef(null);
   const messagesEndRef = useRef(null);
   const [details, setDetails] = useState({});
+  const [showMarkdown, setShowMarkdown] = useState(false);
+  const [mrkdown, setMrkdown] = useState('');
   const options = { linkUrls: true };
+
+  fetch(descriptionFile).then((response) => response.text()).then((text) => {
+      setMrkdown(text);
+  })
 
   useEffect(() => {
     /*messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });*/
@@ -68,14 +77,37 @@ export default function ExistingProjects({toggleLoaded, toggleDropDown, isLoaded
             <div style={{"marginRight":"20px", "height":"calc(100vh - 110px)"}}>     
               <h3 class="borderBottom" > 
                 <FontAwesomeIcon icon={faCode} /> Parameters
-              </h3>            
-              <SimpleTreeView expandedItems={["grid"]}>   
+              </h3>    
+
+              <SimpleTreeView>
+                <TreeItem itemId="description" label="Description">
+                  <div class="flexRow flexStart">
+                    <TreeItem onClick={()=>{setShowMarkdown(true);}} itemId={"description_key"} label="Description" />
+                  </div>
+                </TreeItem>
+              </SimpleTreeView>
+
+              <SimpleTreeView>   
                 <TreeItem itemId="grid" label="Solution Tree">
                   {Object.keys(outoutData).map(each => {
                   return (
                     <>
                       <div class="flexRow flexStart">
-                         <TreeItem onClick={()=>{setDetails(outoutData[each]);}} itemId={each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
+                         <TreeItem onClick={()=>{setShowMarkdown(false);setDetails(outoutData[each]);}} itemId={each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
+                      </div>                    
+                    </>
+                  );
+                  })}   
+                </TreeItem>
+              </SimpleTreeView>
+
+              <SimpleTreeView>
+                <TreeItem itemId="report" label="Final Report">
+                  {Object.keys(final_report).map(each => {
+                  return (
+                    <>
+                      <div class="flexRow flexStart">
+                         <TreeItem onClick={()=>{setShowMarkdown(false);setDetails(final_report[each]);}} itemId={"finalReport_"+each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
                       </div>                    
                     </>
                   );
@@ -94,11 +126,14 @@ export default function ExistingProjects({toggleLoaded, toggleDropDown, isLoaded
             <h3 class="borderBottom"> 
               <FontAwesomeIcon icon={faChartBar} /> Analysis
             </h3>           
-            <p class="textInfo">
-              <JsonList data={details} />
-            </p>
-            <ChatGPTInterface style={{position: "absolute", bottom: "0px"}} toggleDropDown={()=>{}} count = {0} toggleLoaded={true} isLoaded = {0}></ChatGPTInterface>   
-                   
+            {!showMarkdown ? <>
+              <p class="textInfo">
+                <JsonList data={details} />
+              </p>
+            </> : 
+              <ReactMarkdown children={mrkdown} />            
+            }
+            <ChatGPTInterface style={{position: "absolute", bottom: "0px"}} toggleDropDown={()=>{}} count = {0} toggleLoaded={true} isLoaded = {0}></ChatGPTInterface>                   
             </>
             ) : 
             (<><CardSkeleton amount={1} /></>)

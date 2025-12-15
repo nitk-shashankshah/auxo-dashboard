@@ -62,7 +62,7 @@ function Header({toggleDropDown, count}){
         <button class="searchBtn"><FontAwesomeIcon icon={faSearch} /></button>
       </div>*/}
       <div>
-        <button class="btn"><FontAwesomeIcon style={{fontSize:18, marginTop: 5}} icon={faBell}/></button>
+        <button class="btn bellIcon"><FontAwesomeIcon style={{fontSize:18, marginTop: 5}} icon={faBell}/></button>
         <UserLogin count={count} toggleDropDown={toggleDropDown}/>
       </div>
 
@@ -82,10 +82,10 @@ function LeftPanel(){
         <Link to="/existing" ><FontAwesomeIcon style={{"color" : 'rgba(255,255,255,0.5)',  marginLeft:5, fontSize: 20}}  icon={faList} /></Link>
       </li>      
       <li class="iconMenu">    
-        <FontAwesomeIcon icon={faCalendarAlt}  style={{ marginLeft:5 }}/>
+        <FontAwesomeIcon icon={faCalendarAlt}  style={{ marginLeft:5, fontSize: 20 }}/>
       </li>
       <li class="iconMenu">
-        <FontAwesomeIcon icon={faCoffee}  style={{ marginLeft:5 }}/>
+        <FontAwesomeIcon icon={faCoffee}  style={{ marginLeft:5, fontSize: 20 }}/>
       </li>
     </ul>}
   </div>
