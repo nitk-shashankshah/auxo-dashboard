@@ -66,7 +66,7 @@ export default function RecipeReviewCard({txt, heading, myheight}) {
       {!expanded ? (
       <CardContent>
         {myheight ?
-         (<div style={{"height":"460px","overflow":"hidden","width":"90%"}}>
+         (<div style={{"height":"455px","overflow":"hidden","width":"90%"}}>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             <JsonList data={txt} />
             </Typography>

@@ -119,11 +119,11 @@ export default function ExistingProjects() {
               </div>
             </div>          
            </div>
-          <div class="margin-10 card flexRow cardLong">
+          <div class="card flexRow cardLong margin-top-20">
 
           {isLoaded ? (
             <>
-            <div style={{"marginRight":"20px", "width":"20%"}} class="margin-top-20">            
+            <div style={{"marginRight":"20px", "width":"20%"}}>            
               <SimpleTreeView>
                 <TreeItem itemId="pageDescription" label="Description">
                   <div class="flexRow flexStart">
