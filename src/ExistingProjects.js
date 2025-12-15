@@ -30,7 +30,8 @@ export default function ExistingProjects() {
   const textareaRef = useRef(null);
   const messagesEndRef = useRef(null);
   const [details, setDetails] = useState({});
-  const [showMarkdown, setShowMarkdown] = useState(false);
+  const [heading, setHeading] = useState('Description');
+  const [showMarkdown, setShowMarkdown] = useState(true);
   const [mrkdown, setMrkdown] = useState('');
   const options = { linkUrls: true };
   const [count, setCount] = useState(false);
@@ -91,19 +92,22 @@ export default function ExistingProjects() {
             (<><CardSkeleton amount={1} /></>)
             }           
           </div>
-          
-        <div class="sideBar margin-10 curvedPanel">
-          {isLoaded ? (     
-            <>
-            <div style={{"marginRight":"20px", "height":"calc(100vh - 110px)"}}>     
-              <h3 class="borderBottom" > 
-                <FontAwesomeIcon icon={faCode} /> Parameters
-              </h3>    
 
+        <div class="margin-10 cardPanel flexVertical">
+
+          <div class="margin-10 card flexRow">
+            sdfsdfsdf
+          </div>
+
+          <div class="margin-10 card flexRow">
+
+          {isLoaded ? (
+            <>
+            <div style={{"marginRight":"20px", "width":"20%"}} class="margin-top-20">            
               <SimpleTreeView>
                 <TreeItem itemId="pageDescription" label="Description">
                   <div class="flexRow flexStart">
-                    <TreeItem onClick={()=>{setShowMarkdown(true);}} itemId={"description_key"} label="Description" />
+                    <TreeItem onClick={()=>{setShowMarkdown(true);setHeading('Description');}} itemId={"description_key"} label="Description" />
                   </div>
                 </TreeItem>
               </SimpleTreeView>
@@ -114,7 +118,7 @@ export default function ExistingProjects() {
                   return (
                     <>
                       <div class="flexRow flexStart">
-                         <TreeItem onClick={()=>{setShowMarkdown(false);setDetails(outoutData[each]);}} itemId={each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
+                         <TreeItem onClick={()=>{setShowMarkdown(false);setDetails(each, outoutData[each]);setHeading(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each);}} itemId={each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
                       </div>                    
                     </>
                   );
@@ -128,7 +132,7 @@ export default function ExistingProjects() {
                   return (
                     <>
                       <div class="flexRow flexStart">
-                         <TreeItem onClick={()=>{setShowMarkdown(false);setDetails(final_report[each]);}} itemId={"finalReport_"+each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
+                         <TreeItem onClick={()=>{setShowMarkdown(false);setDetails(final_report[each]);setHeading(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each);}} itemId={"finalReport_"+each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
                       </div>                    
                     </>
                   );
@@ -136,16 +140,13 @@ export default function ExistingProjects() {
                 </TreeItem>
               </SimpleTreeView>
             </div>
-            </>
-  ) : (<><CardSkeleton amount={1} /></>)}
-        </div>
-        <div class="contentBar">
-          <div class="curvedPanel margin-10" style={{height:"calc(100vh - 100px)"}}>
+
+            <div style={{"width":"80%"}}>
             {
             isLoaded ? (
             <>    
             <h3 class="borderBottom"> 
-              <FontAwesomeIcon icon={faChartBar} /> Analysis
+              <FontAwesomeIcon icon={faChartBar} /> {heading}
             </h3>           
             {!showMarkdown ? <>
               <p class="textInfo">
@@ -154,14 +155,18 @@ export default function ExistingProjects() {
             </> : 
               <ReactMarkdown children={mrkdown} />            
             }
-            <ChatARM style={{position: "absolute", bottom: "0px"}}  toggleDropDown={toggleDropDown} count = {0} toggleLoaded={toggleLoaded} isLoaded = {0}></ChatARM>                   
+            {/*<ChatARM style={{position: "absolute", bottom: "0px"}}  toggleDropDown={toggleDropDown} count = {0} toggleLoaded={toggleLoaded} isLoaded = {0}></ChatARM>*/}                 
             </>
             ) : 
             (<><CardSkeleton amount={1} /></>)
             }
-          </div>  
+            </div>
 
-        </div>
+
+            </>
+  ) : (<><CardSkeleton amount={1} /></>)}
+          </div>
+        </div>       
       </div>
       </div>
     </>

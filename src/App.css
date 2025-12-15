@@ -2,7 +2,7 @@
    background: #f6f5f5;
    width:100%;
    padding-bottom:10px;
-   height: calc(100vh);
+   min-height: calc(100vh);
    border-radius: 10px 0px 0px 0px;
    box-sizing: border-box;
 }
@@ -203,7 +203,11 @@ ul.navMenu li:hover .iconItem{
    background-color: #f0eee9;
 }
 
-.curvedPanel{
+.cardPanel{
+  width: 80%;
+}
+
+.card{
   background-color: #fff;
   padding:0px 20px 0px 20px;
   overflow-y: scroll;
@@ -306,6 +310,7 @@ ul.navMenu li:hover .iconItem{
   margin-right:10px;
   background-color: #f4f4f4;
   width: 100%;
+  box-sizing: border-box;
   padding:10px;
 }
 
