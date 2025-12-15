@@ -44,6 +44,7 @@ export default function SimpleSnackbar() {
       <Snackbar
         open={open}
         autoHideDuration={6000}
+        anchorOrigin={{ vertical : 'bottom', horizontal : 'center' }}
         onClose={handleClose}
         message="Projects Wine Class is ready for use"
         action={action}
