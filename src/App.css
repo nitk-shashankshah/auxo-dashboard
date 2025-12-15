@@ -239,10 +239,6 @@ ul.navMenu li:hover .iconItem{
   margin-right: 5px;
 }
 
-.borderPurple{
-  border-top: 2px solid #5c5b50;
-}
-
 .margin-top-5 {
   margin-top:5px;
 }
@@ -381,14 +377,23 @@ ul.navMenu li:hover .iconItem{
 }
 
 .borderBottom{
-  font-weight: 300;
+  font-weight: 500;
   font-size: 18px;
+  color: #333;
 }
 
 .chat-container {
   display: flex;
   flex-direction: column;
 }
+
+.css-1lt5qva-MuiCardContent-root{
+  padding:0px!important;
+}
+
+.css-1lt5qva-MuiCardContent-root:last-child{
+  padding:0px!important;
+}  
 
 #textBox {
   transition: all 0.3s ease;

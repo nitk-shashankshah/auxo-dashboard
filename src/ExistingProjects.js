@@ -23,6 +23,7 @@ import descriptionFile from './description.md';
 import JsonList from './JsonList';
 import ReactMarkdown from 'react-markdown';
 import SimpleSnackbar from './SimpleSnackbar';
+import ExpandableCard from './ExpandableCard';
 
 export default function ExistingProjects() {
   const [message, setMessage] = useState('');
@@ -65,9 +66,9 @@ export default function ExistingProjects() {
             {
             isLoaded ? (
             <>    
-              <h3 class="borderBottom" > 
+              <h5 style={{fontWeight:300}}> 
                 <FontAwesomeIcon icon={faCode} /> Projects
-              </h3>
+              </h5>
               <SimpleTreeView expandedItems={["grid"]}>   
                 <TreeItem itemId="grid" label="Available Projects">
                   {['Wine Classification'].map((each) => {
@@ -93,66 +94,32 @@ export default function ExistingProjects() {
             }           
           </div>
 
-        <div class="margin-10 cardPanel flexVertical">
-
-          <div class="margin-10 flexRow" style={{"height":500}}>
-           
-            <div class="flexVertical width-30" style={{height:"600"}}>
-             
-
-                <div class="card  borderPurple">
-                <h3 class="borderBottom"> 
-                  <FontAwesomeIcon icon={faHandPointer} /> Problem Overview
-                </h3>           
-                <>
-                  <JsonList data={final_report["problem_overview"]} />
-                </> 
-              </div> 
-
-              <div class="card borderPurple">
-                <h3 class="borderBottom"> 
-                  <FontAwesomeIcon icon={faHandPointer} /> Validation Strategy
-                </h3>           
-                <>
-                  <JsonList data={final_report["validation_strategy"]} />
-                </> 
-              </div>
+<div class="flexVertical">
+            <div class="margin-10 flexRow">
+            
+            <div style={{width:"32%"}}>
+             <ExpandableCard txt={final_report["problem_overview"]} heading="Problem Overview" myheight={500}></ExpandableCard>
             </div>
-
-            <div class="flexVertical width-30" style={{"height":"300"}}>
-              <div class="card borderPurple">
-                <h3 class="borderBottom"> 
-                  <FontAwesomeIcon icon={faHandPointer} /> Model Feasibility
-                </h3>           
-                <>
-                  <JsonList data={final_report["model_feasibility"]} />
-                </> 
+            <div style={{width:"66%"}}>
+              <div class="margin-10 flexRow">
+                <div style={{width:"48%"}}>
+                  <ExpandableCard txt={final_report["validation_strategy"]} heading="Validation Strategy"></ExpandableCard>
+                </div>
+                <div style={{width:"48%"}}>
+                  <ExpandableCard txt={final_report["model_feasibility"]}  heading="Model Feasibility"></ExpandableCard>
+                </div>
               </div>
-
-              <div class="card borderPurple">
-                <h3 class="borderBottom"> 
-                  <FontAwesomeIcon icon={faHandPointer} /> Prediction Strategy
-                </h3>           
-                <>
-                  <JsonList data={final_report["prediction_strategy"]} />
-                </>
+              <div class="margin-top-20 flexRow">              
+                <div style={{width:"48%"}}>
+                  <ExpandableCard txt={final_report["prediction_strategy"]}  heading="Prediction Strategy"></ExpandableCard>
+                </div>
+                <div style={{width:"48%"}}>
+                  <ExpandableCard txt={final_report["model_evaluation_metrics"]}  heading="Model Evaluation Metrics"></ExpandableCard>
+                </div>
               </div>
-            </div>
-             <div class="flexVertical width-30" style={{"height":"100%"}}>
-              
-               <div class="card borderPurple" style={{"height":"100%"}}>
-                <h3 class="borderBottom"> 
-                  <FontAwesomeIcon icon={faHandPointer} /> Model Evaluation Metrics
-                </h3>           
-                <>
-                  <JsonList data={final_report["model_evaluation_metrics"]} />
-                </> 
-              </div>             
-            </div>
-
-          </div>        
-
-          <div class="margin-10 card flexRow cardLong borderPurple">
+            </div>          
+           </div>
+          <div class="margin-10 card flexRow cardLong">
 
           {isLoaded ? (
             <>
@@ -199,7 +166,7 @@ export default function ExistingProjects() {
             isLoaded ? (
             <>    
             <h3 class="borderBottom"> 
-              <FontAwesomeIcon icon={faChartBar} /> {heading}
+              <FontAwesomeIcon icon={faChartBar} />
             </h3>           
             {!showMarkdown ? <>
               <p class="textInfo">
@@ -219,8 +186,8 @@ export default function ExistingProjects() {
             </>
   ) : (<><CardSkeleton amount={1} /></>)}
           </div>
+          </div>
         </div>       
-      </div>
       </div>
     </>
   );
