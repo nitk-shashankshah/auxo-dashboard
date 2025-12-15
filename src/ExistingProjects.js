@@ -95,11 +95,61 @@ export default function ExistingProjects() {
 
         <div class="margin-10 cardPanel flexVertical">
 
-          <div class="margin-10 card flexRow">
-            sdfsdfsdf
-          </div>
+          <div class="margin-10 flexRow" style={{"height":500}}>
+            <div class="flexVertical width-30" style={{"height":"100%"}}>
+              
+               <div class="card borderPurple" style={{"height":"300"}}>
+                <h3 class="borderBottom"> 
+                  <FontAwesomeIcon icon={faChartBar} /> Model Evaluation Metrics
+                </h3>           
+                <>
+                  <JsonList data={final_report["model_evaluation_metrics"]} />
+                </> 
+              </div>             
+            </div>
 
-          <div class="margin-10 card flexRow">
+            <div class="flexVertical width-30" style={{height:"600"}}>
+              <div class="card borderPurple">
+                <h3 class="borderBottom"> 
+                  <FontAwesomeIcon icon={faChartBar} /> Model Feasibility
+                </h3>           
+                <>
+                  <JsonList data={final_report["model_feasibility"]} />
+                </> 
+              </div>
+
+              <div class="card borderPurple">
+                <h3 class="borderBottom"> 
+                  <FontAwesomeIcon icon={faChartBar} /> Validation Strategy
+                </h3>           
+                <>
+                  <JsonList data={final_report["validation_strategy"]} />
+                </> 
+              </div>
+            </div>
+
+            <div class="flexVertical width-30" style={{"height":"300"}}>
+              <div class="card  borderPurple">
+                <h3 class="borderBottom"> 
+                  <FontAwesomeIcon icon={faChartBar} /> Problem Overview
+                </h3>           
+                <>
+                  <JsonList data={final_report["problem_overview"]} />
+                </> 
+              </div> 
+
+              <div class="card borderPurple">
+                <h3 class="borderBottom"> 
+                  <FontAwesomeIcon icon={faChartBar} /> Prediction Strategy
+                </h3>           
+                <>
+                  <JsonList data={final_report["prediction_strategy"]} />
+                </>
+              </div>
+            </div>
+          </div>        
+
+          <div class="margin-10 card flexRow cardLong borderPurple">
 
           {isLoaded ? (
             <>

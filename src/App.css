@@ -91,7 +91,7 @@
   clear:both;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
 }
 
@@ -197,10 +197,11 @@ ul.navMenu li:hover .iconItem{
 }
 
 .projectPanel{
-   width:15%;
+   width:20%;
    overflow: hidden;
    padding:0px 20px 0px 20px;
    background-color: #f0eee9;
+   box-sizing: border-box;
 }
 
 .cardPanel{
@@ -211,6 +212,20 @@ ul.navMenu li:hover .iconItem{
   background-color: #fff;
   padding:0px 20px 0px 20px;
   overflow-y: scroll;
+  box-sizing: border-box;
+  box-shadow: 1px 2px 2px #e5e5e5;
+  width: 100%;
+  font-size: 14px;
+  height: 240px;
+}
+
+.cardLong{
+  min-height: 800px;
+  width: 99%;
+}
+
+.width-30{
+  width: 32%;
 }
 
 .margin-top-20{
@@ -218,9 +233,14 @@ ul.navMenu li:hover .iconItem{
 }
 
 .margin-10{
-  margin-top:10px;
-  margin-left:10px;
-  margin-bottom:10px;
+  margin-top:5px;
+  margin-left:5px;
+  margin-bottom:5px;
+  margin-right: 5px;
+}
+
+.borderPurple{
+  border-top:2px solid #4a6c09;
 }
 
 .margin-top-5 {
