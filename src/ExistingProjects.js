@@ -16,14 +16,15 @@ import CardSkeleton from './CardSkeleton';
 import { ChartsAxisHighlight } from '@mui/x-charts/ChartsAxisHighlight';
 import { faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown, faList, faFile } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ChatGPTInterface from './ChatGPTInterface';
+import ChatARM from './ChatARM';
 import outoutData from './ContextState.json';
 import final_report from './final_report.json';
 import descriptionFile from './description.md';
 import JsonList from './JsonList';
 import ReactMarkdown from 'react-markdown';
+import SimpleSnackbar from './SimpleSnackbar';
 
-export default function ExistingProjects({toggleLoaded, toggleDropDown, isLoaded, count}) {
+export default function ExistingProjects() {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const textareaRef = useRef(null);
@@ -32,10 +33,23 @@ export default function ExistingProjects({toggleLoaded, toggleDropDown, isLoaded
   const [showMarkdown, setShowMarkdown] = useState(false);
   const [mrkdown, setMrkdown] = useState('');
   const options = { linkUrls: true };
+  const [count, setCount] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(0);
 
   fetch(descriptionFile).then((response) => response.text()).then((text) => {
       setMrkdown(text);
+      setTimeout(() => {
+        setIsLoaded(true);
+      },1000);
   })
+
+  function toggleDropDown(val) {
+    setCount(val);
+  }
+
+  function toggleLoaded(isLoad){
+     setIsLoaded(isLoad => !isLoad);
+  };
 
   useEffect(() => {
     /*messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });*/
@@ -43,6 +57,7 @@ export default function ExistingProjects({toggleLoaded, toggleDropDown, isLoaded
 
   return (
     <>
+      <SimpleSnackbar></SimpleSnackbar>
       <div class="flexVertical">
         <div class="flexAround">
           <div class="projectPanel margin-10">
@@ -53,15 +68,21 @@ export default function ExistingProjects({toggleLoaded, toggleDropDown, isLoaded
                 <FontAwesomeIcon icon={faCode} /> Projects
               </h3>
               <SimpleTreeView expandedItems={["grid"]}>   
-                <TreeItem itemId="grid" label="Branches">
-                  {['Wine Classification','Airlines Classification', 'Sales Predictions'].map(each => {
-                  return (
-                    <>
+                <TreeItem itemId="grid" label="Available Projects">
+                  {['Wine Classification'].map((each) => {
+                  if (each == 'Wine Classification'){
+                    return (
                       <div class="flexRow flexStart">
-                         <TreeItem itemId={each} label={each} />
-                      </div>                    
-                    </>
-                  );
+                        <TreeItem itemId={each} label={each} onClick={()=>{setIsLoaded(true);}} />
+                      </div>                                                                   
+                    );
+                  } else {
+                     return (
+                      <div>
+                        <TreeItem itemId={each} label={each} onClick={()=>{setIsLoaded(false);}} />
+                      </div>
+                    );
+                  }
                   })}   
                 </TreeItem>
               </SimpleTreeView>                     
@@ -80,7 +101,7 @@ export default function ExistingProjects({toggleLoaded, toggleDropDown, isLoaded
               </h3>    
 
               <SimpleTreeView>
-                <TreeItem itemId="description" label="Description">
+                <TreeItem itemId="pageDescription" label="Description">
                   <div class="flexRow flexStart">
                     <TreeItem onClick={()=>{setShowMarkdown(true);}} itemId={"description_key"} label="Description" />
                   </div>
@@ -133,7 +154,7 @@ export default function ExistingProjects({toggleLoaded, toggleDropDown, isLoaded
             </> : 
               <ReactMarkdown children={mrkdown} />            
             }
-            <ChatGPTInterface style={{position: "absolute", bottom: "0px"}} toggleDropDown={()=>{}} count = {0} toggleLoaded={true} isLoaded = {0}></ChatGPTInterface>                   
+            <ChatARM style={{position: "absolute", bottom: "0px"}}  toggleDropDown={toggleDropDown} count = {0} toggleLoaded={toggleLoaded} isLoaded = {0}></ChatARM>                   
             </>
             ) : 
             (<><CardSkeleton amount={1} /></>)

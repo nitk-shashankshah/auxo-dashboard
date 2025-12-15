@@ -54,7 +54,7 @@ function Header({toggleDropDown, count}){
   return <div>
     <div class="appHeader flexRow">
       <div class="flexRow">
-      <button class="btn"><FontAwesomeIcon icon={faBars} style={{fontSize:24}}/></button>
+      <button class="btn"><FontAwesomeIcon icon={faBars} style={{fontSize:16, marginTop:5}}/></button>
       <div class="logo"></div> 
       </div>
       {/*<div class="searchBox">
@@ -161,7 +161,7 @@ export default function App() {
         <div class="flexRow">
             <Routes>
                 <Route path="/" element={<MainPanel toggleExpand={toggleExpanded} toggleDropDown={toggleDropDown} count={count} isExpanded = {isExpanded} />} />
-                <Route path="/existing" element={<ExistingProjects isLoaded={true} />} />
+                <Route path="/existing" element={<ExistingProjects />} />
             </Routes>                         
         </div>
       </div>
