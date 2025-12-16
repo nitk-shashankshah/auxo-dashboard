@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { Send } from 'lucide-react';
 import Dropdown from './Dropdown';
 import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
@@ -18,11 +18,9 @@ import { faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCa
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ChatARM from './ChatARM';
 
-import outoutData from './wine_class/ContextState.json';
-import final_report from './wine_class/final_report.json';
-import descriptionFile from './wine_class/description.md';
+import wine_final_report from './wine_class/final_report.json';
+import wine_descriptionFile from './wine_class/description.md';
 
-import housing_outoutData from './wine_class/ContextState.json';
 import housing_final_report from './housing_04_11/final_summary_report.json';
 import housing_descriptionFile from './housing_04_11/description.md';
 
@@ -31,42 +29,27 @@ import ReactMarkdown from 'react-markdown';
 import SimpleSnackbar from './SimpleSnackbar';
 import ExpandableCard from './ExpandableCard';
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 
 export default function BusinessDiscovery() {
-  const [message, setMessage] = useState('');
-  const [messages, setMessages] = useState([]);
-  const textareaRef = useRef(null);
-  const messagesEndRef = useRef(null);
   const [details, setDetails] = useState({});
+  const [jsonData, setJsonData] = useState({});
+
   const [heading, setHeading] = useState('Description');
   const [showMarkdown, setShowMarkdown] = useState(true);
   const [mrkdown, setMrkdown] = useState('');
-  const options = { linkUrls: true };
-  const [count, setCount] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(1);
 
-  fetch(descriptionFile).then((response) => response.text()).then((text) => {
-      setMrkdown(text);
-      setTimeout(() => {
-        setIsLoaded(true);
-      },1000);
-  })
-  
-  function toggleDropDown(val) {
-    setCount(val);
+  function loadData(fl_name, report_fl) {   
+    setJsonData(report_fl);
+    fetch(fl_name).then((response) => response.text()).then((text) => {
+        setMrkdown(text);
+        setTimeout(() => {
+          setIsLoaded(true);
+        },1000);
+    });
   }
-
-  function toggleLoaded(isLoad){
-     setIsLoaded(isLoad => !isLoad);
-  };
-
-  useEffect(() => {
-    /*messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });*/
-  }, [messages]);
 
   return (
     <>
@@ -88,13 +71,13 @@ export default function BusinessDiscovery() {
                   if (each == 'Wine Classification'){
                     return (
                       <div class="flexRow flexStart">
-                        <TreeItem itemId={each} label={each} onClick={()=>{setIsLoaded(true);}} />
+                        <TreeItem itemId={each.split(' ').join('_')} label={each} onClick={()=>{loadData(wine_descriptionFile, wine_final_report);setIsLoaded(true);}} />
                       </div>                                                                   
                     );
                   } else {
                      return (
                       <div>
-                        <TreeItem itemId={each} label={each} onClick={()=>{setIsLoaded(false);}} />
+                        <TreeItem itemId={each.split(' ').join('_')} label={each} onClick={()=>{loadData(housing_descriptionFile, housing_final_report);setIsLoaded(true);}} />
                       </div>
                     );
                   }
@@ -104,7 +87,7 @@ export default function BusinessDiscovery() {
             </>
             ) : 
             (<><CardSkeleton amount={1} /></>)
-            }                     
+            }
 </CardContent>
 </Card>
 </div>
@@ -113,99 +96,91 @@ export default function BusinessDiscovery() {
             <div class="margin-10 flexRow">
             
             <div style={{width:"33%"}}>
-             <ExpandableCard txt={housing_final_report["problem_overview"]} heading="Problem Overview" myheight={500}></ExpandableCard>
+             {
+             (Object.keys(jsonData).length>0) ? 
+              <ExpandableCard txt={jsonData[Object.keys(jsonData)[0]]} heading={Object.keys(jsonData)[0]} myheight={500}></ExpandableCard>
+              : null
+            }
             </div>
             <div style={{width:"66%"}}>
               <div class="flexRow">
                 <div style={{width:"49%"}}>
-                  <ExpandableCard txt={housing_final_report["validation_strategy"]} heading="Validation Strategy"></ExpandableCard>
+                  {(Object.keys(jsonData).length >1) ? <ExpandableCard txt={jsonData[Object.keys(jsonData)[1]]} heading={Object.keys(jsonData)[1]}></ExpandableCard>
+                  :null}
                 </div>
                 <div style={{width:"49%"}}>
-                  <ExpandableCard txt={housing_final_report["model_feasibility"]}  heading="Model Feasibility"></ExpandableCard>
+                  {(Object.keys(jsonData).length >2) ? <ExpandableCard txt={jsonData[Object.keys(jsonData)[2]]}  heading={Object.keys(jsonData)[2]}></ExpandableCard>
+                  :null}
                 </div>
               </div>
               <div class="margin-top-20 flexRow">              
                 <div style={{width:"49%"}}>
-                  <ExpandableCard txt={housing_final_report["prediction_strategy"]}  heading="Prediction Strategy"></ExpandableCard>
+                  {(Object.keys(jsonData).length >3) ? <ExpandableCard txt={jsonData[Object.keys(jsonData)[3]]}  heading={Object.keys(jsonData)[3]}></ExpandableCard>
+                  :null}
                 </div>
                 <div style={{width:"49%"}}>
-                  <ExpandableCard txt={housing_final_report["model_evaluation_metrics"]}  heading="Model Evaluation Metrics"></ExpandableCard>
+                  {(Object.keys(jsonData).length >4) ? <ExpandableCard txt={jsonData[Object.keys(jsonData)[4]]}  heading={Object.keys(jsonData)[4]}></ExpandableCard>
+                  :null}
                 </div>
               </div>
-            </div>          
+            </div>
            </div>
           <div class="cardLong margin-10">
+            <Card style={{width:"calc(100% - 10px)", "borderTop": "1px solid rgb(151 151 151)"}}>           
+                  <CardContent>
+                      {isLoaded ? (
+                        <>
+                        <div class="flexRow fullWidth">
+                        <div style={{"marginRight":"20px", "marginTop":50, "width":"20%"}}>            
+                          <SimpleTreeView>
+                            <TreeItem itemId="pageDescription" label="Description">
+                              <div class="flexRow flexStart">
+                                <TreeItem onClick={()=>{setShowMarkdown(true);setHeading('Description');}} itemId={"description_key"} label="Description" />
+                              </div>
+                            </TreeItem>
+                          </SimpleTreeView>           
 
- <Card style={{width:"calc(100% - 10px)", "borderTop": "1px solid rgb(151 151 151)"}}>           
-      <CardContent>
-          {isLoaded ? (
-            <>
-            <div class="flexRow fullWidth">
-            <div style={{"marginRight":"20px", "marginTop":50, "width":"20%"}}>            
-              <SimpleTreeView>
-                <TreeItem itemId="pageDescription" label="Description">
-                  <div class="flexRow flexStart">
-                    <TreeItem onClick={()=>{setShowMarkdown(true);setHeading('Description');}} itemId={"description_key"} label="Description" />
-                  </div>
-                </TreeItem>
-              </SimpleTreeView>
+                          <SimpleTreeView>
+                            <TreeItem itemId="report" label="Final Report">
+                              {Object.keys(jsonData).map(each => {
+                              return (
+                                <>
+                                  <div class="flexRow flexStart">
+                                    <TreeItem onClick={()=>{setShowMarkdown(false);setDetails(jsonData[each]);setHeading(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each);}} itemId={"finalReport_"+each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
+                                  </div>                    
+                                </>
+                              );
+                              })}   
+                            </TreeItem>
+                          </SimpleTreeView>
+                        </div>
 
-              <SimpleTreeView>
-                <TreeItem itemId="grid" label="Solution Tree">
-                  {Object.keys(housing_outoutData).map(each => {
-                  return (
-                    <>
-                      <div class="flexRow flexStart">
-                         <TreeItem onClick={()=>{setShowMarkdown(false);setDetails(each, outoutData[each]);setHeading(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each);}} itemId={each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
-                      </div>                    
-                    </>
-                  );
-                  })}   
-                </TreeItem>
-              </SimpleTreeView>
-
-              <SimpleTreeView>
-                <TreeItem itemId="report" label="Final Report">
-                  {Object.keys(housing_final_report).map(each => {
-                  return (
-                    <>
-                      <div class="flexRow flexStart">
-                         <TreeItem onClick={()=>{setShowMarkdown(false);setDetails(housing_final_report[each]);setHeading(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each);}} itemId={"finalReport_"+each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
-                      </div>                    
-                    </>
-                  );
-                  })}   
-                </TreeItem>
-              </SimpleTreeView>
-            </div>
-
-            <div style={{"width":"80%", "textAlign":"left"}}>
-            {
-            isLoaded ? (
-            <>     
-            <CardActions disableSpacing>  
-              <h3 class="borderBottom"> 
-                   <FontAwesomeIcon icon={faChartBar} />{heading}
-              </h3>             
-            </CardActions>
-            {!showMarkdown ? <>
-              <p class="textInfo">
-                <JsonList data={details} />
-              </p>
-            </> : 
-              <ReactMarkdown children={mrkdown} />            
-            }
-            {/*<ChatARM style={{position: "absolute", bottom: "0px"}}  toggleDropDown={toggleDropDown} count = {0} toggleLoaded={toggleLoaded} isLoaded = {0}></ChatARM>*/}                 
-            </>
-            ) : 
-            (<><CardSkeleton amount={1} /></>)
-            }
-            </div>
-            </div>
-            </>
-  ) : (<><CardSkeleton amount={1} /></>)}
-      </CardContent>    
-    </Card>
+                        <div style={{"width":"80%", "textAlign":"left"}}>
+                        {
+                        isLoaded ? (
+                        <>     
+                        <CardActions disableSpacing>  
+                          <h3 class="borderBottom"> 
+                              <FontAwesomeIcon icon={faChartBar} />{heading}
+                          </h3>             
+                        </CardActions>
+                        {!showMarkdown ? <>
+                          <p class="textInfo">
+                            <JsonList data={details} />
+                          </p>
+                        </> : 
+                          <ReactMarkdown children={mrkdown} />            
+                        }
+                        </>
+                        ) : 
+                        (<><CardSkeleton amount={1} /></>)
+                        }
+                        </div>
+                        </div>
+                        </>
+              ) : (<><CardSkeleton amount={1} /></>)}
+                  </CardContent>    
+                </Card>
           </div>
           </div>
         </div>       

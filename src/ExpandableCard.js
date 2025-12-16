@@ -51,7 +51,7 @@ export default function RecipeReviewCard({txt, heading, myheight}) {
     <Card style={{"borderTop": "1px solid rgb(151 151 151)"}}>    
       <CardActions disableSpacing>  
         <h3 class="borderBottom" style={{marginLeft:15}}> 
-            {heading}
+            {heading.split('_').map(each => each.charAt(0).toUpperCase() + each.slice(1)).join(' ')}
         </h3>     
         <ExpandMore
           expand={expanded}
@@ -67,12 +67,16 @@ export default function RecipeReviewCard({txt, heading, myheight}) {
         {myheight ?
          (<div style={{"height":"455px","overflow":"hidden","width":"90%"}}>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            <JsonList data={txt} />
+            {
+              (typeof txt == 'object') ? <JsonList data={txt} /> : <div style={{"paddingLeft":20}}>{txt}</div>
+            }  
             </Typography>
         </div>) : 
         (<div style={{"height":"180px","overflow":"hidden","width":"90%"}}>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            <JsonList data={txt} />
+            {
+              (typeof txt == 'object') ? <JsonList data={txt} /> : <div style={{"paddingLeft":20}}>{txt}</div>
+            }            
             </Typography>
         </div>)}
       </CardContent>) : ""}
@@ -82,11 +86,15 @@ export default function RecipeReviewCard({txt, heading, myheight}) {
           {myheight ? 
           (<div style={{"min-height":"455px","overflow":"hidden","width":"90%"}}>
           <Typography variant="body2" sx={{ marginBottom: 2 }}>
-            <JsonList data={txt} />
+            {
+              (typeof txt == 'object') ? <JsonList data={txt} /> : <div style={{"paddingLeft":20}}>{txt}</div>
+            }  
           </Typography></div>) : 
           (<div style={{"min-height":"180px","overflow":"hidden","width":"90%"}}>
-            <Typography variant="body2" sx={{ marginBottom: 2 }}>
-              <JsonList data={txt} />
+            <Typography variant="body2" sx={{ marginBottom: 2 }}>             
+              {
+                (typeof txt == 'object') ? <JsonList data={txt} /> : <div style={{"paddingLeft":20}}>{txt}</div>
+              }  
             </Typography> 
           </div>)}
         </CardContent>
