@@ -24,6 +24,11 @@ import JsonList from './JsonList';
 import ReactMarkdown from 'react-markdown';
 import SimpleSnackbar from './SimpleSnackbar';
 import ExpandableCard from './ExpandableCard';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
 
 export default function ExistingProjects() {
   const [message, setMessage] = useState('');
@@ -62,11 +67,13 @@ export default function ExistingProjects() {
       <SimpleSnackbar></SimpleSnackbar>
       <div class="flexVertical">
         <div class="flexAround">
-          <div class="projectPanel margin-10">
+          <div className="projectPanel margin-10">
+          <Card style={{width:"calc(100%)"}}>           
+            <CardContent>          
             {
             isLoaded ? (
             <>    
-              <h5 style={{fontWeight:300}}> 
+              <h5 style={{fontWeight:300, marginLeft: 10}}> 
                 <FontAwesomeIcon icon={faCode} /> Projects
               </h5>
               <SimpleTreeView expandedItems={["grid"]}>   
@@ -91,39 +98,44 @@ export default function ExistingProjects() {
             </>
             ) : 
             (<><CardSkeleton amount={1} /></>)
-            }           
-          </div>
+            }                     
+</CardContent>
+</Card>
+</div>
 
 <div class="flexVertical">
             <div class="margin-10 flexRow">
             
-            <div style={{width:"32%"}}>
+            <div style={{width:"33%"}}>
              <ExpandableCard txt={final_report["problem_overview"]} heading="Problem Overview" myheight={500}></ExpandableCard>
             </div>
             <div style={{width:"66%"}}>
-              <div class="margin-10 flexRow">
-                <div style={{width:"48%"}}>
+              <div class="flexRow">
+                <div style={{width:"49%"}}>
                   <ExpandableCard txt={final_report["validation_strategy"]} heading="Validation Strategy"></ExpandableCard>
                 </div>
-                <div style={{width:"48%"}}>
+                <div style={{width:"49%"}}>
                   <ExpandableCard txt={final_report["model_feasibility"]}  heading="Model Feasibility"></ExpandableCard>
                 </div>
               </div>
               <div class="margin-top-20 flexRow">              
-                <div style={{width:"48%"}}>
+                <div style={{width:"49%"}}>
                   <ExpandableCard txt={final_report["prediction_strategy"]}  heading="Prediction Strategy"></ExpandableCard>
                 </div>
-                <div style={{width:"48%"}}>
+                <div style={{width:"49%"}}>
                   <ExpandableCard txt={final_report["model_evaluation_metrics"]}  heading="Model Evaluation Metrics"></ExpandableCard>
                 </div>
               </div>
             </div>          
            </div>
-          <div class="card flexRow cardLong margin-top-20">
+          <div class="cardLong margin-10">
 
+ <Card style={{width:"calc(100% - 10px)"}}>           
+      <CardContent>
           {isLoaded ? (
             <>
-            <div style={{"marginRight":"20px", "width":"20%"}}>            
+            <div class="flexRow fullWidth">
+            <div style={{"marginRight":"20px", "marginTop":50, "width":"20%"}}>            
               <SimpleTreeView>
                 <TreeItem itemId="pageDescription" label="Description">
                   <div class="flexRow flexStart">
@@ -161,13 +173,15 @@ export default function ExistingProjects() {
               </SimpleTreeView>
             </div>
 
-            <div style={{"width":"80%"}}>
+            <div style={{"width":"80%", "textAlign":"left"}}>
             {
             isLoaded ? (
-            <>    
-            <h3 class="borderBottom"> 
-              <FontAwesomeIcon icon={faChartBar} />
-            </h3>           
+            <>     
+            <CardActions disableSpacing>  
+              <h3 class="borderBottom"> 
+                   <FontAwesomeIcon icon={faChartBar} />{heading}
+              </h3>             
+            </CardActions>
             {!showMarkdown ? <>
               <p class="textInfo">
                 <JsonList data={details} />
@@ -181,10 +195,11 @@ export default function ExistingProjects() {
             (<><CardSkeleton amount={1} /></>)
             }
             </div>
-
-
+            </div>
             </>
   ) : (<><CardSkeleton amount={1} /></>)}
+      </CardContent>    
+    </Card>
           </div>
           </div>
         </div>       

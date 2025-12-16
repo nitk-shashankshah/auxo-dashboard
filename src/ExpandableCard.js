@@ -48,8 +48,7 @@ export default function RecipeReviewCard({txt, heading, myheight}) {
   };
 
   return (
-    <Card>     
-    
+    <Card style={{"borderTop": "1px solid rgb(151 151 151)"}}>    
       <CardActions disableSpacing>  
         <h3 class="borderBottom" style={{marginLeft:15}}> 
             {heading}
@@ -80,9 +79,16 @@ export default function RecipeReviewCard({txt, heading, myheight}) {
    
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
+          {myheight ? 
+          (<div style={{"min-height":"455px","overflow":"hidden","width":"90%"}}>
           <Typography variant="body2" sx={{ marginBottom: 2 }}>
             <JsonList data={txt} />
-          </Typography>          
+          </Typography></div>) : 
+          (<div style={{"min-height":"180px","overflow":"hidden","width":"90%"}}>
+            <Typography variant="body2" sx={{ marginBottom: 2 }}>
+              <JsonList data={txt} />
+            </Typography> 
+          </div>)}
         </CardContent>
       </Collapse>
     </Card>
