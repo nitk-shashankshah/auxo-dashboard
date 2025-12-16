@@ -79,6 +79,7 @@ export default function EDAEngine() {
 
   const [etlimages, setEtlimages] = useState([]);
   const [currentChart, setCurrentChart] = useState('');
+  const [showChart, setShowChart] = useState(false);
 
 const imageUrls = [
 {"data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv', "url": './images/my_eda_analysis/plots/hyp_00bda110_13_yearbuilt_line.png',"imageComponent": hyp_00bda110_13_yearbuilt_line},
@@ -129,13 +130,6 @@ const imageUrls = [
 {"data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_a85e0dfc_6_GrLivArea_zscore.png',"imageComponent":hyp_a85e0dfc_6_GrLivArea_zscore},
 {"data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter2_f6815b97_9_garage_missing_boxplot.png',"imageComponent":hyp_iter2_f6815b97_9_garage_missing_boxplot},
 {"data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_a85e0dfc_6_LotArea_iqr.png',"imageComponent":hyp_a85e0dfc_6_LotArea_iqr}];
-
-  /*find(function(result) {
-      console.log(result);
-  }, {
-      dir: './housing_results/my_eda_analysis/plots',
-      name: 'png'
-  });*/
 
   function loadData(fl_name, report_fl) {   
     setJsonData(report_fl);
@@ -234,7 +228,7 @@ const imageUrls = [
                               return (
                                 <>
                                   <div class="flexRow flexStart">
-                                    <TreeItem onClick={()=>{setShowMarkdown(false);setDetails(jsonData[each]);setHeading(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each);}} itemId={"finalReport_"+each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
+                                    <TreeItem onClick={()=>{setShowMarkdown(false);setShowChart(false);setDetails(jsonData[each]);setHeading(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each);}} itemId={"finalReport_"+each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
                                   </div>                    
                                 </>
                               );
@@ -248,7 +242,7 @@ const imageUrls = [
                               return (
                                 <>
                                   <div class="flexRow flexStart">
-                                    <TreeItem onClick={()=>{setCurrentChart(each.url);}} itemId={"chart_"+idx} label={each.data.split('.')[0].split('_').slice(each.data.split('.')[0].split('_').length -3, each.data.split('.')[0].split('_').length).join(' ')} />
+                                    <TreeItem onClick={()=>{setCurrentChart(each.url);setShowChart(true);}} itemId={"chart_"+idx} label={each.data.split('.')[0].split('_').slice(each.data.split('.')[0].split('_').length -3, each.data.split('.')[0].split('_').length).join(' ')} />
                                   </div>                    
                                 </>
                               );
@@ -260,14 +254,22 @@ const imageUrls = [
                         <div style={{"width":"80%", "textAlign":"left"}}>
                         {
                         isLoaded ? (
-                        <>     
-                        <CardActions disableSpacing>  
-                          <h3 class="borderBottom"> 
-                            <FontAwesomeIcon icon={faChartBar} />{heading}
-                          </h3>             
-                        </CardActions>          
-                        <img src={imageUrls.filter(each => (each.url == currentChart)).length ? imageUrls.filter(each => (each.url == currentChart))[0]["imageComponent"] : null} width="100%"/>
-                        </>
+                          showChart ? 
+                          (
+                            <>     
+                            <CardActions disableSpacing>  
+                              <h3 class="borderBottom"> 
+                                <FontAwesomeIcon icon={faChartBar} />{heading}
+                              </h3>             
+                            </CardActions>          
+                            <img src={imageUrls.filter(each => (each.url == currentChart)).length ? imageUrls.filter(each => (each.url == currentChart))[0]["imageComponent"] : null} width="100%"/>
+                            </>
+                          ) :
+                          (
+                            <p class="textInfo">
+                              <JsonList data={details} />
+                            </p>
+                          )
                         ) : 
                         (<><CardSkeleton amount={1} /></>)
                         }
