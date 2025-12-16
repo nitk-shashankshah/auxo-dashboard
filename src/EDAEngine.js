@@ -1,0 +1,286 @@
+import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
+import { Send } from 'lucide-react';
+import Dropdown from './Dropdown';
+import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
+import { TreeItem } from '@mui/x-tree-view/TreeItem';
+import Skeleton from "react-loading-skeleton";
+import CardSkeleton from './CardSkeleton';
+import { faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown, faList, faFile } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import housing_final_report from './housing_results/eda_final_report.json';
+import housing_descriptionFile from './housing_results/eda_final_report.md';
+
+import JsonList from './JsonList';
+import ReactMarkdown from 'react-markdown';
+import SimpleSnackbar from './SimpleSnackbar';
+import ExpandableCard from './ExpandableCard';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import hyp_00bda110_13_yearbuilt_line from './housing_results/my_eda_analysis/plots/hyp_00bda110_13_yearbuilt_line.png';                          
+import hyp_a85e0dfc_6_LotArea_zscore from './housing_results/my_eda_analysis/plots/hyp_a85e0dfc_6_LotArea_zscore.png';  
+import hyp_00bda110_13_yearbuilt_scatter from './housing_results/my_eda_analysis/plots/hyp_00bda110_13_yearbuilt_scatter.png'; 
+import hyp_dc548a64_4_missing_values_heatmap from './housing_results/my_eda_analysis/plots/hyp_dc548a64_4_missing_values_heatmap.png'; 
+import hyp_0434c56d_14_neighborhood_density from './housing_results/my_eda_analysis/plots/hyp_0434c56d_14_neighborhood_density.png'; 
+import hyp_ee4016c6_1_saleprice_distribution from './housing_results/my_eda_analysis/plots/hyp_ee4016c6_1_saleprice_distribution.png'; 
+import hyp_0434c56d_14_overallqual_density from './housing_results/my_eda_analysis/plots/hyp_0434c56d_14_overallqual_density.png'; 
+import hyp_fc5f160f_10_interaction_heatmap from './housing_results/my_eda_analysis/plots/hyp_fc5f160f_10_interaction_heatmap.png'; 
+import hyp_19507431_19_lotfrontage_scatter from './housing_results/my_eda_analysis/plots/hyp_19507431_19_lotfrontage_scatter.png'; 
+import hyp_fc5f160f_10_interaction_scatter from './housing_results/my_eda_analysis/plots/hyp_fc5f160f_10_interaction_scatter.png'; 
+import hyp_1c6b14fc_3_neighborhood_vs_price_boxplot from './housing_results/my_eda_analysis/plots/hyp_1c6b14fc_3_neighborhood_vs_price_boxplot.png'; 
+import hyp_iter1_0aa2b533_4_garage_propertytype_scatter from './housing_results/my_eda_analysis/plots/hyp_iter1_0aa2b533_4_garage_propertytype_scatter.png'; 
+import hyp_1c6b14fc_3_neighborhood_vs_price_mean from './housing_results/my_eda_analysis/plots/hyp_1c6b14fc_3_neighborhood_vs_price_mean.png'; 
+import hyp_iter1_244d5358_3_lotarea_boxplot from './housing_results/my_eda_analysis/plots/hyp_iter1_244d5358_3_lotarea_boxplot.png'; 
+import hyp_3c6d450d_2_overallqual_vs_saleprice from './housing_results/my_eda_analysis/plots/hyp_3c6d450d_2_overallqual_vs_saleprice.png'; 
+import hyp_iter1_244d5358_3_lotarea_outliers_scatter from './housing_results/my_eda_analysis/plots/hyp_iter1_244d5358_3_lotarea_outliers_scatter.png'; 
+import hyp_3cc6e749_12_neighborhood_vs_saleprice from './housing_results/my_eda_analysis/plots/hyp_3cc6e749_12_neighborhood_vs_saleprice.png'; 
+import hyp_iter1_42394ae8_6_lotfrontage_missing_boxplot from './housing_results/my_eda_analysis/plots/hyp_iter1_42394ae8_6_lotfrontage_missing_boxplot.png'; 
+import hyp_4b95706b_7_garagearea_vs_saleprice from './housing_results/my_eda_analysis/plots/hyp_4b95706b_7_garagearea_vs_saleprice.png'; 
+import hyp_iter1_567884d7_2_yearbuilt_neighborhood_interaction from './housing_results/my_eda_analysis/plots/hyp_iter1_567884d7_2_yearbuilt_neighborhood_interaction.png'; 
+import hyp_4b95706b_7_garageyr_vs_saleprice from './housing_results/my_eda_analysis/plots/hyp_4b95706b_7_garageyr_vs_saleprice.png'; 
+import hyp_iter1_641060e2_1_interaction_plot from './housing_results/my_eda_analysis/plots/hyp_iter1_641060e2_1_interaction_plot.png'; 
+import hyp_4dead2a8_20_partial_dependence_fixed from './housing_results/my_eda_analysis/plots/hyp_4dead2a8_20_partial_dependence_fixed.png'; 
+import hyp_iter1_6a7008a0_9_pool_quality_high_price_boxplot from './housing_results/my_eda_analysis/plots/hyp_iter1_6a7008a0_9_pool_quality_high_price_boxplot.png'; 
+import hyp_585dfc61_18_polynomial_relation from './housing_results/my_eda_analysis/plots/hyp_585dfc61_18_polynomial_relation.png'; 
+import hyp_iter1_8bda13e7_10_rooms_aboveground_relationship from './housing_results/my_eda_analysis/plots/hyp_iter1_8bda13e7_10_rooms_aboveground_relationship.png'; 
+import hyp_5ba87c39_15_isolation_forest from './housing_results/my_eda_analysis/plots/hyp_5ba87c39_15_isolation_forest.png'; 
+import hyp_iter1_b2bc09a4_5_totalbsmt_polynomial_relationship from './housing_results/my_eda_analysis/plots/hyp_iter1_b2bc09a4_5_totalbsmt_polynomial_relationship.png'; 
+import hyp_5ba87c39_15_zscore_anomalies from './housing_results/my_eda_analysis/plots/hyp_5ba87c39_15_zscore_anomalies.png'; 
+import hyp_iter1_f210c4b0_8_functional_saleprice_boxplot from './housing_results/my_eda_analysis/plots/hyp_iter1_f210c4b0_8_functional_saleprice_boxplot.png'; 
+import hyp_6697ef0d_11_exterqual_boxplot from './housing_results/my_eda_analysis/plots/hyp_6697ef0d_11_exterqual_boxplot.png'; 
+import hyp_iter2_2d350b0c_6_totalbsmt_outliers_boxplot from './housing_results/my_eda_analysis/plots/hyp_iter2_2d350b0c_6_totalbsmt_outliers_boxplot.png'; 
+import hyp_683b1dd4_8_kitchenqual_boxplot from './housing_results/my_eda_analysis/plots/hyp_683b1dd4_8_kitchenqual_boxplot.png'; 
+import hyp_iter2_2d350b0c_6_totalbsmt_outliers_scatter from './housing_results/my_eda_analysis/plots/hyp_iter2_2d350b0c_6_totalbsmt_outliers_scatter.png'; 
+import hyp_6f49f677_16_bsmtcond_boxplot from './housing_results/my_eda_analysis/plots/hyp_6f49f677_16_bsmtcond_boxplot.png'; 
+import hyp_iter2_3af2fc9a_1_neighborhood_yearbuilt_interaction from './housing_results/my_eda_analysis/plots/hyp_iter2_3af2fc9a_1_neighborhood_yearbuilt_interaction.png'; 
+import hyp_6f49f677_16_bsmtqual_boxplot from './housing_results/my_eda_analysis/plots/hyp_6f49f677_16_bsmtqual_boxplot.png'; 
+import hyp_iter2_44de524b_4_functional_neighborhood_saleprice from './housing_results/my_eda_analysis/plots/hyp_iter2_44de524b_4_functional_neighborhood_saleprice.png'; 
+import hyp_93542f5a_9_pca_variance_explained from './housing_results/my_eda_analysis/plots/hyp_93542f5a_9_pca_variance_explained.png'; 
+import hyp_iter2_5eaf0f91_10_pool_quality_boxplot from './housing_results/my_eda_analysis/plots/hyp_iter2_5eaf0f91_10_pool_quality_boxplot.png'; 
+import hyp_97293e07_17_feature_clusters from './housing_results/my_eda_analysis/plots/hyp_97293e07_17_feature_clusters.png'; 
+import hyp_iter2_9a6a0f9a_2_lotarea_neighborhood_saleprice_boxplot from './housing_results/my_eda_analysis/plots/hyp_iter2_9a6a0f9a_2_lotarea_neighborhood_saleprice_boxplot.png'; 
+import hyp_a5ec488f_5_correlation_heatmap from './housing_results/my_eda_analysis/plots/hyp_a5ec488f_5_correlation_heatmap.png'; 
+import hyp_iter2_d6de097a_7_neighborhood_trends_plot from './housing_results/my_eda_analysis/plots/hyp_iter2_d6de097a_7_neighborhood_trends_plot.png'; 
+import hyp_a85e0dfc_6_GrLivArea_iqr from './housing_results/my_eda_analysis/plots/hyp_a85e0dfc_6_GrLivArea_iqr.png'; 
+import hyp_iter2_dce26856_3_garagearea_relationship from './housing_results/my_eda_analysis/plots/hyp_iter2_dce26856_3_garagearea_relationship.png'; 
+import hyp_a85e0dfc_6_GrLivArea_zscore from './housing_results/my_eda_analysis/plots/hyp_a85e0dfc_6_GrLivArea_zscore.png'; 
+import hyp_iter2_f6815b97_9_garage_missing_boxplot from './housing_results/my_eda_analysis/plots/hyp_iter2_f6815b97_9_garage_missing_boxplot.png'; 
+import hyp_a85e0dfc_6_LotArea_iqr from './housing_results/my_eda_analysis/plots/hyp_a85e0dfc_6_LotArea_iqr.png'; 
+
+export default function EDAEngine() {
+  const [details, setDetails] = useState({});
+  const [jsonData, setJsonData] = useState({});
+
+  const [heading, setHeading] = useState('Description');
+  const [showMarkdown, setShowMarkdown] = useState(true);
+  const [mrkdown, setMrkdown] = useState('');
+  const [isLoaded, setIsLoaded] = useState(1);
+
+  const [etlimages, setEtlimages] = useState([]);
+  const [currentChart, setCurrentChart] = useState('');
+
+const imageUrls = [
+{"data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv', "url": './images/my_eda_analysis/plots/hyp_00bda110_13_yearbuilt_line.png',"imageComponent": hyp_00bda110_13_yearbuilt_line},
+{"data":'hyp_0434c56d_14_neighborhood_vs_saleprice.csv', "url": './images/my_eda_analysis/plots/hyp_a85e0dfc_6_LotArea_zscore.png',"imageComponent": hyp_a85e0dfc_6_LotArea_zscore},
+{"data":'hyp_0434c56d_14_overallqual_vs_saleprice.csv', "url":'./images/my_eda_analysis/plots/hyp_00bda110_13_yearbuilt_scatter.png', "imageComponent": hyp_00bda110_13_yearbuilt_scatter},
+{"data":'hyp_19507431_19_lotfrontage_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_dc548a64_4_missing_values_heatmap.png', "imageComponent":hyp_dc548a64_4_missing_values_heatmap},
+{"data":'hyp_1c6b14fc_3_neighborhood_vs_price_summary.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_ee4016c6_1_saleprice_distribution.png',"imageComponent":hyp_ee4016c6_1_saleprice_distribution},
+{"data":'hyp_3c6d450d_2_correlation_overallqual_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_0434c56d_14_overallqual_density.png',"imageComponent":hyp_0434c56d_14_overallqual_density},
+{"data":'hyp_3cc6e749_12_neighborhood_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_fc5f160f_10_interaction_heatmap.png',"imageComponent":hyp_fc5f160f_10_interaction_heatmap},
+{"data":'hyp_4b95706b_7_garage_features_correlation.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_19507431_19_lotfrontage_scatter.png',"imageComponent":hyp_19507431_19_lotfrontage_scatter},
+{"data":'hyp_585dfc61_18_polynomial_grlivarea.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_fc5f160f_10_interaction_scatter.png',"imageComponent":hyp_fc5f160f_10_interaction_scatter},
+{"data":'hyp_5ba87c39_15_anomaly_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_1c6b14fc_3_neighborhood_vs_price_boxplot.png',"imageComponent":hyp_1c6b14fc_3_neighborhood_vs_price_boxplot},
+{"data":'hyp_6697ef0d_11_exterqual_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter1_0aa2b533_4_garage_propertytype_scatter.png',"imageComponent":hyp_iter1_0aa2b533_4_garage_propertytype_scatter},
+{"data":'hyp_683b1dd4_8_kitchenqual_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_1c6b14fc_3_neighborhood_vs_price_mean.png',"imageComponent":hyp_1c6b14fc_3_neighborhood_vs_price_mean},
+{"data":'hyp_6f49f677_16_bsmtcond_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter1_244d5358_3_lotarea_boxplot.png',"imageComponent":hyp_iter1_244d5358_3_lotarea_boxplot},
+{"data":'hyp_6f49f677_16_bsmtqual_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_3c6d450d_2_overallqual_vs_saleprice.png',"imageComponent":hyp_3c6d450d_2_overallqual_vs_saleprice},
+{"data":'hyp_93542f5a_9_pca_components.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter1_244d5358_3_lotarea_outliers_scatter.png',"imageComponent":hyp_iter1_244d5358_3_lotarea_outliers_scatter},
+{"data":'hyp_97293e07_17_feature_clusters.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_3cc6e749_12_neighborhood_vs_saleprice.png',"imageComponent":hyp_3cc6e749_12_neighborhood_vs_saleprice},
+{"data":'hyp_a5ec488f_5_correlation_summary.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter1_42394ae8_6_lotfrontage_missing_boxplot.png',"imageComponent":hyp_iter1_42394ae8_6_lotfrontage_missing_boxplot},
+{"data":'hyp_a85e0dfc_6_outlier_summary.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_4b95706b_7_garagearea_vs_saleprice.png',"imageComponent":hyp_4b95706b_7_garagearea_vs_saleprice},
+{"data":'hyp_dc548a64_4_missing_values_summary.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter1_567884d7_2_yearbuilt_neighborhood_interaction.png', "imageComponent":hyp_iter1_567884d7_2_yearbuilt_neighborhood_interaction},
+{"data":'hyp_ee4016c6_1_saleprice_stats.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_4b95706b_7_garageyr_vs_saleprice.png',"imageComponent":hyp_4b95706b_7_garageyr_vs_saleprice},
+{"data":'hyp_fc5f160f_10_interaction_summary.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter1_641060e2_1_interaction_plot.png',"imageComponent":hyp_iter1_641060e2_1_interaction_plot},
+{"data":'hyp_iter1_0aa2b533_4_garage_propertytype_interaction.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_4dead2a8_20_partial_dependence_fixed.png',"imageComponent":hyp_4dead2a8_20_partial_dependence_fixed},
+{"data":'hyp_iter1_244d5358_3_lotarea_vs_saleprice_outliers.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter1_6a7008a0_9_pool_quality_high_price_boxplot.png',"imageComponent":hyp_iter1_6a7008a0_9_pool_quality_high_price_boxplot},
+{"data":'hyp_iter1_42394ae8_6_lotfrontage_missing_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_585dfc61_18_polynomial_relation.png',"imageComponent":hyp_585dfc61_18_polynomial_relation},
+{"data":'hyp_iter1_567884d7_2_yearbuilt_neighborhood_interaction.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter1_8bda13e7_10_rooms_aboveground_relationship.png',"imageComponent":hyp_iter1_8bda13e7_10_rooms_aboveground_relationship},
+{"data":'hyp_iter1_641060e2_1_neighborhood_interaction_summary.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_5ba87c39_15_isolation_forest.png',"imageComponent":hyp_5ba87c39_15_isolation_forest},
+{"data":'hyp_iter1_6a7008a0_9_pool_quality_vs_high_price.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter1_b2bc09a4_5_totalbsmt_polynomial_relationship.png',"imageComponent":hyp_iter1_b2bc09a4_5_totalbsmt_polynomial_relationship},
+{"data":'hyp_iter1_8bda13e7_10_rooms_aboveground_relationship.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_5ba87c39_15_zscore_anomalies.png',"imageComponent":hyp_5ba87c39_15_zscore_anomalies},
+{"data":'hyp_iter1_b2bc09a4_5_totalbsmt_polynomial_relationship.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter1_f210c4b0_8_functional_saleprice_boxplot.png',"imageComponent":hyp_iter1_f210c4b0_8_functional_saleprice_boxplot},
+{"data":'hyp_iter2_2d350b0c_6_totalbsmt_outliers.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_6697ef0d_11_exterqual_boxplot.png',"imageComponent":hyp_6697ef0d_11_exterqual_boxplot},
+{"data":'hyp_iter2_3af2fc9a_1_neighborhood_yearbuilt_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter2_2d350b0c_6_totalbsmt_outliers_boxplot.png',"imageComponent":hyp_iter2_2d350b0c_6_totalbsmt_outliers_boxplot},
+{"data":'hyp_iter2_44de524b_4_functional_neighborhood_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_683b1dd4_8_kitchenqual_boxplot.png',"imageComponent":hyp_683b1dd4_8_kitchenqual_boxplot},
+{"data":'hyp_iter2_5eaf0f91_10_pool_quality_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter2_2d350b0c_6_totalbsmt_outliers_scatter.png',"imageComponent":hyp_iter2_2d350b0c_6_totalbsmt_outliers_scatter},
+{"data":'hyp_iter2_9a6a0f9a_2_lotarea_neighborhood_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_6f49f677_16_bsmtcond_boxplot.png',"imageComponent":hyp_6f49f677_16_bsmtcond_boxplot},
+{"data":'hyp_iter2_d6de097a_7_neighborhood_trends_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter2_3af2fc9a_1_neighborhood_yearbuilt_interaction.png',"imageComponent":hyp_iter2_3af2fc9a_1_neighborhood_yearbuilt_interaction},
+{"data":'hyp_iter2_dce26856_3_garagearea_relationship.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_6f49f677_16_bsmtqual_boxplot.png',"imageComponent":hyp_6f49f677_16_bsmtqual_boxplot},
+{"data":'hyp_iter2_f6815b97_9_garage_missing_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter2_44de524b_4_functional_neighborhood_saleprice.png',"imageComponent":hyp_iter2_44de524b_4_functional_neighborhood_saleprice},
+{"data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_93542f5a_9_pca_variance_explained.png',"imageComponent":hyp_93542f5a_9_pca_variance_explained},
+{"data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter2_5eaf0f91_10_pool_quality_boxplot.png',"imageComponent":hyp_iter2_5eaf0f91_10_pool_quality_boxplot},
+{ "data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv',"url":'./housing_results/my_eda_analysis/plots/hyp_97293e07_17_feature_clusters.png',"imageComponent":hyp_97293e07_17_feature_clusters},
+{"data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter2_9a6a0f9a_2_lotarea_neighborhood_saleprice_boxplot.png',"imageComponent":hyp_iter2_9a6a0f9a_2_lotarea_neighborhood_saleprice_boxplot},
+{"data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_a5ec488f_5_correlation_heatmap.png',"imageComponent":hyp_a5ec488f_5_correlation_heatmap},
+{"data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter2_d6de097a_7_neighborhood_trends_plot.png',"imageComponent":hyp_iter2_d6de097a_7_neighborhood_trends_plot},
+{"data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_a85e0dfc_6_GrLivArea_iqr.png',"imageComponent":hyp_a85e0dfc_6_GrLivArea_iqr},
+{"data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter2_dce26856_3_garagearea_relationship.png',"imageComponent":hyp_iter2_dce26856_3_garagearea_relationship},
+{"data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_a85e0dfc_6_GrLivArea_zscore.png',"imageComponent":hyp_a85e0dfc_6_GrLivArea_zscore},
+{"data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter2_f6815b97_9_garage_missing_boxplot.png',"imageComponent":hyp_iter2_f6815b97_9_garage_missing_boxplot},
+{"data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_a85e0dfc_6_LotArea_iqr.png',"imageComponent":hyp_a85e0dfc_6_LotArea_iqr}];
+
+  /*find(function(result) {
+      console.log(result);
+  }, {
+      dir: './housing_results/my_eda_analysis/plots',
+      name: 'png'
+  });*/
+
+  function loadData(fl_name, report_fl) {   
+    setJsonData(report_fl);
+    setEtlimages([hyp_00bda110_13_yearbuilt_line, hyp_a85e0dfc_6_LotArea_zscore]);
+    fetch(fl_name).then((response) => response.text()).then((text) => {
+        setMrkdown(text);
+        setTimeout(() => {
+          setIsLoaded(true);
+        },1000);
+    });
+  }
+
+  return (
+    <>
+      <SimpleSnackbar></SimpleSnackbar>
+      <div class="flexVertical">
+        <div class="flexAround">
+          <div className="projectPanel margin-10">
+          <Card style={{width:"calc(100%)"}}>           
+            <CardContent>          
+            {
+            isLoaded ? (
+            <>    
+              <h5 style={{fontWeight:300, marginLeft: 10}}> 
+                <FontAwesomeIcon icon={faCode} /> EDA Engine
+              </h5>
+              <SimpleTreeView expandedItems={["grid"]}>   
+                <TreeItem itemId="grid" label="Projects">
+                  {['Housing Data'].map((each) => {                  
+                     return (
+                      <div>
+                        <TreeItem itemId={each.split(' ').join('_')} label={each} onClick={()=>{loadData(housing_descriptionFile, housing_final_report);setIsLoaded(true);}} />
+                      </div>
+                    );                  
+                  })}   
+                </TreeItem>
+              </SimpleTreeView>                     
+            </>
+            ) : 
+            (<><CardSkeleton amount={1} /></>)
+            }
+</CardContent>
+</Card>
+</div>
+
+<div class="flexVertical">
+    {/*<div class="margin-10 flexRow">            
+            <div style={{width:"33%"}}>
+             {
+             (Object.keys(jsonData).length>0) ? 
+              <ExpandableCard txt={jsonData[Object.keys(jsonData)[0]]} heading={Object.keys(jsonData)[0]} myheight={500}></ExpandableCard>
+              : null
+            }
+            </div>
+            <div style={{width:"66%"}}>
+              <div class="flexRow">
+                <div style={{width:"49%"}}>
+                  {(Object.keys(jsonData).length >1) ? <ExpandableCard txt={jsonData[Object.keys(jsonData)[1]]} heading={Object.keys(jsonData)[1]}></ExpandableCard>
+                  :null}
+                </div>
+                <div style={{width:"49%"}}>
+                  {(Object.keys(jsonData).length >2) ? <ExpandableCard txt={jsonData[Object.keys(jsonData)[2]]}  heading={Object.keys(jsonData)[2]}></ExpandableCard>
+                  :null}
+                </div>
+              </div>
+              <div class="margin-top-20 flexRow">              
+                <div style={{width:"49%"}}>
+                  {(Object.keys(jsonData).length >3) ? <ExpandableCard txt={jsonData[Object.keys(jsonData)[3]]}  heading={Object.keys(jsonData)[3]}></ExpandableCard>
+                  :null}
+                </div>
+                <div style={{width:"49%"}}>
+                  {(Object.keys(jsonData).length >4) ? <ExpandableCard txt={jsonData[Object.keys(jsonData)[4]]}  heading={Object.keys(jsonData)[4]}></ExpandableCard>
+                  :null}
+                </div>
+              </div>
+            </div>
+           </div>*/}
+          <div class="cardLong margin-10">
+            <Card style={{width:"calc(100% - 10px)", "borderTop": "1px solid rgb(151 151 151)"}}>           
+                  <CardContent>
+                      {isLoaded ? (
+                        <>
+                        <div class="flexRow fullWidth">
+                        <div style={{"marginRight":"20px", "marginTop":50, "width":"20%", "height":500, "overflowY":"scroll"}}>            
+                          {/*<SimpleTreeView>
+                            <TreeItem itemId="pageDescription" label="Description">
+                              <div class="flexRow flexStart">
+                                <TreeItem onClick={()=>{setShowMarkdown(true);setHeading('Description');}} itemId={"description_key"} label="Description" />
+                              </div>
+                            </TreeItem>
+                          </SimpleTreeView>*/}        
+
+                          <SimpleTreeView>
+                            <TreeItem itemId="report" label="Final Report">
+                              {Object.keys(jsonData).map(each => {
+                              return (
+                                <>
+                                  <div class="flexRow flexStart">
+                                    <TreeItem onClick={()=>{setShowMarkdown(false);setDetails(jsonData[each]);setHeading(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each);}} itemId={"finalReport_"+each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
+                                  </div>                    
+                                </>
+                              );
+                              })}
+                            </TreeItem>
+                          </SimpleTreeView>
+
+                          <SimpleTreeView>
+                            <TreeItem itemId="plots" label="Plots">
+                              {imageUrls.map((each, idx) => {
+                              return (
+                                <>
+                                  <div class="flexRow flexStart">
+                                    <TreeItem onClick={()=>{setCurrentChart(each.url);}} itemId={"chart_"+idx} label={each.data.split('.')[0].split('_').slice(each.data.split('.')[0].split('_').length -3, each.data.split('.')[0].split('_').length).join(' ')} />
+                                  </div>                    
+                                </>
+                              );
+                              })}
+                            </TreeItem>
+                          </SimpleTreeView>
+                        </div>
+
+                        <div style={{"width":"80%", "textAlign":"left"}}>
+                        {
+                        isLoaded ? (
+                        <>     
+                        <CardActions disableSpacing>  
+                          <h3 class="borderBottom"> 
+                            <FontAwesomeIcon icon={faChartBar} />{heading}
+                          </h3>             
+                        </CardActions>          
+                        <img src={imageUrls.filter(each => (each.url == currentChart)).length ? imageUrls.filter(each => (each.url == currentChart))[0]["imageComponent"] : null} width="100%"/>
+                        </>
+                        ) : 
+                        (<><CardSkeleton amount={1} /></>)
+                        }
+                        </div>
+                        </div>
+                        </>
+              ) : (<><CardSkeleton amount={1} /></>)}
+                  </CardContent>    
+                </Card>
+          </div>
+          </div>
+        </div>       
+      </div>
+    </>
+  );
+}

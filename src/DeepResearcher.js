@@ -4,16 +4,25 @@ import Dropdown from './Dropdown';
 import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
 import Skeleton from "react-loading-skeleton";
+import Box from '@mui/material/Box';
+import { BarPlot } from '@mui/x-charts/BarChart';
+import { LineHighlightPlot, LinePlot } from '@mui/x-charts/LineChart';
+import { ChartContainer } from '@mui/x-charts/ChartContainer';
+import { AllSeriesType } from '@mui/x-charts/models';
+import { ChartsXAxis } from '@mui/x-charts/ChartsXAxis';
+import { ChartsYAxis } from '@mui/x-charts/ChartsYAxis';
+import { ChartsTooltip } from '@mui/x-charts/ChartsTooltip';
 import CardSkeleton from './CardSkeleton';
+import { ChartsAxisHighlight } from '@mui/x-charts/ChartsAxisHighlight';
 import { faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown, faList, faFile } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ChatARM from './ChatARM';
 
-import wine_final_report from './wine_class/final_report.json';
-import wine_descriptionFile from './wine_class/description.md';
+import wine_final_report from './housing_04_11/deepresearch_report.json';
+import wine_descriptionFile from './housing_04_11/deepresearch_report.md';
 
-import housing_final_report from './housing_04_11/final_summary_report.json';
-import housing_descriptionFile from './housing_04_11/description.md';
+import housing_final_report from './housing_04_11/deepresearch_report.md';
+import housing_descriptionFile from './housing_04_11/deepresearch_report.json';
 
 import JsonList from './JsonList';
 import ReactMarkdown from 'react-markdown';
@@ -23,7 +32,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 
-export default function BusinessDiscovery() {
+export default function DeepResearcher() {
   const [details, setDetails] = useState({});
   const [jsonData, setJsonData] = useState({});
 
@@ -54,7 +63,7 @@ export default function BusinessDiscovery() {
             isLoaded ? (
             <>    
               <h5 style={{fontWeight:300, marginLeft: 10}}> 
-                <FontAwesomeIcon icon={faCode} /> Business Discovery
+                <FontAwesomeIcon icon={faCode} /> Deep Researcher
               </h5>
               <SimpleTreeView expandedItems={["grid"]}>   
                 <TreeItem itemId="grid" label="Available Projects">
@@ -141,7 +150,7 @@ export default function BusinessDiscovery() {
                                   </div>                    
                                 </>
                               );
-                              })}
+                              })}   
                             </TreeItem>
                           </SimpleTreeView>
                         </div>

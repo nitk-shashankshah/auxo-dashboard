@@ -110,7 +110,7 @@ body {
 
 .navMenu {  
   list-style-type: none;
-  padding: 7px;
+  padding: 3px;
   position: fixed;
   top: 100px;
 }
@@ -149,16 +149,24 @@ ul.navMenu li:hover .iconItem{
   word-break: break-all;
 }
 
-.addAction{ 
-  background-color: #0b6ec5;
-  width: 32px;
-  height: 32px;
-  margin-left: 2px;
-  border-radius: 50%;
-  text-align: center;
-  font-size: 21px;
+.addAction{  
+    background-color: #33332a;
+    width: 32px;
+    height: 32px;
+    border: 2px solid #5a5a5a;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 21px;  
+}
+code {
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
+pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
 .searchBtn{
   background-color: #1d1d1d;
   color:#fff;
@@ -342,6 +350,15 @@ ul.navMenu li:hover .iconItem{
   width: 100%;
   box-sizing: border-box;
   padding:10px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  overflow: hidden;
+  inline-size: 100%;  
+}
+
+.textInfo ul{
+  overflow: hidden;
+  inline-size: 100%;  
 }
 
 .codeEditor{

@@ -10,6 +10,8 @@ import BusinessDiscovery from './BusinessDiscovery';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Dropdown from './Dropdown';
 import { counter } from '@fortawesome/fontawesome-svg-core';
+import DeepResearcher from './DeepResearcher';
+import EDAEngine from './EDAEngine';
 
 function MainPanel({toggleExpand, count, isExpanded, toggleDropDown}){
   const [isLoaded, setIsLoaded] = useState(0);
@@ -154,7 +156,7 @@ export default function App() {
               <li><Link to="/discovery">Data Discovery and Master Data Preperation</Link></li>
               <li><Link to="/eda">EDA Engine</Link></li>
               <li><Link to="/ml">ML Engine</Link></li>
-              <li><Link to="/memory">Memory Bank</Link></li>
+              {/*<li><Link to="/memory">Memory Bank</Link></li>*/}
             </ul>
             </div>        
         </div>
@@ -162,6 +164,8 @@ export default function App() {
             <Routes>
                 <Route path="/" element={<MainPanel toggleExpand={toggleExpanded} toggleDropDown={toggleDropDown} count={count} isExpanded = {isExpanded} />} />
                 <Route path="/business" element={<BusinessDiscovery />} />
+                <Route path="/researcher" element={<DeepResearcher />} />
+                <Route path="/eda" element={<EDAEngine />} />
             </Routes>                         
         </div>
       </div>
