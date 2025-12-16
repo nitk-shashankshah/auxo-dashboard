@@ -6,7 +6,7 @@ import { faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCa
 import ChatGPTInterface from './ChatGPTInterface';
 import 'react-loading-skeleton/dist/skeleton.css'
 import UserLogin from './UserLogin';
-import ExistingProjects from './ExistingProjects';
+import BusinessDiscovery from './BusinessDiscovery';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Dropdown from './Dropdown';
 import { counter } from '@fortawesome/fontawesome-svg-core';
@@ -79,7 +79,7 @@ function LeftPanel(){
         </div>
       </li>
       <li class="iconMenu">
-        <Link to="/existing" ><FontAwesomeIcon style={{"color" : 'rgba(255,255,255,0.5)',  marginLeft:5, fontSize: 20}}  icon={faList} /></Link>
+        <Link to="/business" ><FontAwesomeIcon style={{"color" : 'rgba(255,255,255,0.5)',  marginLeft:5, fontSize: 20}}  icon={faList} /></Link>
       </li>      
       <li class="iconMenu">    
         <FontAwesomeIcon icon={faCalendarAlt}  style={{ marginLeft:5, fontSize: 20 }}/>
@@ -149,19 +149,19 @@ export default function App() {
         <div class="flexRow">
             <div class="topNavigation">
             <ul>
-              <li><a>Business Discovery</a></li>
-              <li><a>Deep Researcher</a></li>
-              <li><a>Data Discovery and Master Data Preperation</a></li>
-              <li><a>EDA Engine</a></li>
-              <li><a>ML Engine</a></li>
-              <li><a>Memory Bank</a></li>
+              <li><Link to="/business">Business Discovery</Link></li>
+              <li><Link to="/researcher">Deep Researcher</Link></li>
+              <li><Link to="/discovery">Data Discovery and Master Data Preperation</Link></li>
+              <li><Link to="/eda">EDA Engine</Link></li>
+              <li><Link to="/ml">ML Engine</Link></li>
+              <li><Link to="/memory">Memory Bank</Link></li>
             </ul>
             </div>        
         </div>
         <div class="flexRow">
             <Routes>
                 <Route path="/" element={<MainPanel toggleExpand={toggleExpanded} toggleDropDown={toggleDropDown} count={count} isExpanded = {isExpanded} />} />
-                <Route path="/existing" element={<ExistingProjects />} />
+                <Route path="/business" element={<BusinessDiscovery />} />
             </Routes>                         
         </div>
       </div>

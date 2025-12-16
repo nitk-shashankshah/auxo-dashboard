@@ -17,9 +17,15 @@ import { ChartsAxisHighlight } from '@mui/x-charts/ChartsAxisHighlight';
 import { faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown, faList, faFile } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ChatARM from './ChatARM';
-import outoutData from './ContextState.json';
-import final_report from './final_report.json';
-import descriptionFile from './description.md';
+
+import outoutData from './wine_class/ContextState.json';
+import final_report from './wine_class/final_report.json';
+import descriptionFile from './wine_class/description.md';
+
+import housing_outoutData from './wine_class/ContextState.json';
+import housing_final_report from './housing_04_11/final_summary_report.json';
+import housing_descriptionFile from './housing_04_11/description.md';
+
 import JsonList from './JsonList';
 import ReactMarkdown from 'react-markdown';
 import SimpleSnackbar from './SimpleSnackbar';
@@ -30,7 +36,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 
-export default function ExistingProjects() {
+export default function BusinessDiscovery() {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const textareaRef = useRef(null);
@@ -49,7 +55,7 @@ export default function ExistingProjects() {
         setIsLoaded(true);
       },1000);
   })
-
+  
   function toggleDropDown(val) {
     setCount(val);
   }
@@ -78,7 +84,7 @@ export default function ExistingProjects() {
               </h5>
               <SimpleTreeView expandedItems={["grid"]}>   
                 <TreeItem itemId="grid" label="Available Projects">
-                  {['Wine Classification'].map((each) => {
+                  {['Wine Classification', 'Housing Data'].map((each) => {
                   if (each == 'Wine Classification'){
                     return (
                       <div class="flexRow flexStart">
@@ -107,30 +113,30 @@ export default function ExistingProjects() {
             <div class="margin-10 flexRow">
             
             <div style={{width:"33%"}}>
-             <ExpandableCard txt={final_report["problem_overview"]} heading="Problem Overview" myheight={500}></ExpandableCard>
+             <ExpandableCard txt={housing_final_report["problem_overview"]} heading="Problem Overview" myheight={500}></ExpandableCard>
             </div>
             <div style={{width:"66%"}}>
               <div class="flexRow">
                 <div style={{width:"49%"}}>
-                  <ExpandableCard txt={final_report["validation_strategy"]} heading="Validation Strategy"></ExpandableCard>
+                  <ExpandableCard txt={housing_final_report["validation_strategy"]} heading="Validation Strategy"></ExpandableCard>
                 </div>
                 <div style={{width:"49%"}}>
-                  <ExpandableCard txt={final_report["model_feasibility"]}  heading="Model Feasibility"></ExpandableCard>
+                  <ExpandableCard txt={housing_final_report["model_feasibility"]}  heading="Model Feasibility"></ExpandableCard>
                 </div>
               </div>
               <div class="margin-top-20 flexRow">              
                 <div style={{width:"49%"}}>
-                  <ExpandableCard txt={final_report["prediction_strategy"]}  heading="Prediction Strategy"></ExpandableCard>
+                  <ExpandableCard txt={housing_final_report["prediction_strategy"]}  heading="Prediction Strategy"></ExpandableCard>
                 </div>
                 <div style={{width:"49%"}}>
-                  <ExpandableCard txt={final_report["model_evaluation_metrics"]}  heading="Model Evaluation Metrics"></ExpandableCard>
+                  <ExpandableCard txt={housing_final_report["model_evaluation_metrics"]}  heading="Model Evaluation Metrics"></ExpandableCard>
                 </div>
               </div>
             </div>          
            </div>
           <div class="cardLong margin-10">
 
- <Card style={{width:"calc(100% - 10px)"}}>           
+ <Card style={{width:"calc(100% - 10px)", "borderTop": "1px solid rgb(151 151 151)"}}>           
       <CardContent>
           {isLoaded ? (
             <>
@@ -144,9 +150,9 @@ export default function ExistingProjects() {
                 </TreeItem>
               </SimpleTreeView>
 
-              <SimpleTreeView>   
+              <SimpleTreeView>
                 <TreeItem itemId="grid" label="Solution Tree">
-                  {Object.keys(outoutData).map(each => {
+                  {Object.keys(housing_outoutData).map(each => {
                   return (
                     <>
                       <div class="flexRow flexStart">
@@ -160,11 +166,11 @@ export default function ExistingProjects() {
 
               <SimpleTreeView>
                 <TreeItem itemId="report" label="Final Report">
-                  {Object.keys(final_report).map(each => {
+                  {Object.keys(housing_final_report).map(each => {
                   return (
                     <>
                       <div class="flexRow flexStart">
-                         <TreeItem onClick={()=>{setShowMarkdown(false);setDetails(final_report[each]);setHeading(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each);}} itemId={"finalReport_"+each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
+                         <TreeItem onClick={()=>{setShowMarkdown(false);setDetails(housing_final_report[each]);setHeading(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each);}} itemId={"finalReport_"+each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
                       </div>                    
                     </>
                   );
