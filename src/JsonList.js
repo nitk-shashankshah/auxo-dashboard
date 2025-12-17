@@ -32,7 +32,7 @@ const JsonList = ({ data, keyId }) => {
           ))
         : Object.entries(data).map(([key, value]) => (
             <li key={key}>
-              <span style={{paddingLeft:10, lineHeight: 2}}><strong>{key}:</strong>{" "}</span>
+              <span style={{paddingLeft:10, lineHeight: 2}}><strong>{key.split('_').map(each => each.charAt(0).toUpperCase() + each.slice(1)).join(' ')}:</strong>{" "}</span>
               <div class="textInfo">
                 <JsonList data={value} keyId={key} />
               </div>

@@ -126,16 +126,16 @@ export default function BusinessDiscovery({applyActiveLink}) {
                   <>
                     <div class="margin-10 flexRow">            
                       <div style={{width:"33%"}}>            
-                        <ExpandableCard txt={jsonData[Object.keys(jsonData)[0]]} heading={Object.keys(jsonData)[0]} myheight={500}></ExpandableCard>            
+                        <ExpandableCard txt={jsonData["data_schema"]} heading={"Data Schema"} myheight={500}></ExpandableCard>            
                       </div>
                       <div style={{width:"66%"}}>
                         <div class="flexRow">
                           <div style={{width:"49%"}}>
-                            {(Object.keys(jsonData).length >1) ? <ExpandableCard txt={jsonData[Object.keys(jsonData)[1]]} heading={Object.keys(jsonData)[1]}></ExpandableCard>
+                            {(Object.keys(jsonData).length >1) ? <ExpandableCard txt={jsonData["business_impact_tracking"]} heading={"Business Impact Tracking"}></ExpandableCard>
                             :null}
                           </div>
                           <div style={{width:"49%"}}>
-                            {(Object.keys(jsonData).length >2) ? <ExpandableCard txt={jsonData[Object.keys(jsonData)[2]]}  heading={Object.keys(jsonData)[2]}></ExpandableCard>
+                            {(Object.keys(jsonData).length >2) ? <ExpandableCard txt={jsonData["problem_overview"]}  heading={"Problem Overview"}></ExpandableCard>
                             :null}
                           </div>
                         </div>

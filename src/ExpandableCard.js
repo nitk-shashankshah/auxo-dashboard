@@ -65,14 +65,14 @@ export default function RecipeReviewCard({txt, heading, myheight}) {
       {!expanded ? (
       <CardContent>
         {myheight ?
-         (<div style={{"height":"455px","overflow":"hidden","width":"90%"}}>
+         (<div style={{"height":"700px","overflow":"hidden","width":"90%"}}>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             {
               (typeof txt == 'object') ? <JsonList data={txt} /> : <div style={{"paddingLeft":20}}>{txt}</div>
             }  
             </Typography>
         </div>) : 
-        (<div style={{"height":"180px","overflow":"hidden","width":"90%"}}>
+        (<div style={{"height":"300px","overflow":"hidden","width":"90%"}}>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             {
               (typeof txt == 'object') ? <JsonList data={txt} /> : <div style={{"paddingLeft":20}}>{txt}</div>
@@ -84,13 +84,13 @@ export default function RecipeReviewCard({txt, heading, myheight}) {
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           {myheight ? 
-          (<div style={{"min-height":"455px","overflow":"hidden","width":"90%"}}>
+          (<div style={{"height":"100%","overflow":"hidden","width":"90%"}}>
           <Typography variant="body2" sx={{ marginBottom: 2 }}>
             {
               (typeof txt == 'object') ? <JsonList data={txt} /> : <div style={{"paddingLeft":20}}>{txt}</div>
-            }  
+            }
           </Typography></div>) : 
-          (<div style={{"min-height":"180px","overflow":"hidden","width":"90%"}}>
+          (<div style={{"height":"100%","overflow":"hidden","width":"90%"}}>
             <Typography variant="body2" sx={{ marginBottom: 2 }}>             
               {
                 (typeof txt == 'object') ? <JsonList data={txt} /> : <div style={{"paddingLeft":20}}>{txt}</div>
