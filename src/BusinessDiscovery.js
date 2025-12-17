@@ -9,7 +9,7 @@ import { faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCa
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ChatARM from './ChatARM';
 
-import housing_final_report from './housing_04_11/final_summary_report.json';
+import housing_final_report from './housing_results/final_report.json';
 //import housing_descriptionFile from './housing_04_11/description.md';
 
 import JsonList from './JsonList';
