@@ -5,7 +5,7 @@ import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
 import Skeleton from "react-loading-skeleton";
 import CardSkeleton from './CardSkeleton';
-import { faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown, faList, faFile } from '@fortawesome/free-solid-svg-icons';
+import { faArrowPointer, faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown, faList, faFile, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import housing_final_report from './housing_results/eda_final_report.json';
@@ -133,20 +133,20 @@ const imageUrls = [
 
   applyActiveLink('eda');
 
-  function loadData(fl_name, report_fl) {   
+ function loadData(report_fl) {
     setJsonData(report_fl);
-    setEtlimages([hyp_00bda110_13_yearbuilt_line, hyp_a85e0dfc_6_LotArea_zscore]);
-    fetch(fl_name).then((response) => response.text()).then((text) => {
-        setMrkdown(text);
-        setTimeout(() => {
-          setIsLoaded(true);
-        },1000);
-    });
+    setIsLoaded(false);
+    setTimeout(() => {
+      setIsLoaded(true);
+    },1000);
+    /*fetch(fl_name).then((response) => response.text()).then((text) => {
+        setMrkdown(text);       
+    });*/
   }
 
   return (
     <>
-      <SimpleSnackbar></SimpleSnackbar>
+      {/*<SimpleSnackbar></SimpleSnackbar>*/}
       <div class="flexVertical">
         <div class="flexAround">
           <div className="projectPanel margin-10">
@@ -163,7 +163,7 @@ const imageUrls = [
                   {['Housing Data'].map((each) => {                  
                      return (
                       <div>
-                        <TreeItem itemId={each.split(' ').join('_')} label={each} onClick={()=>{loadData(housing_descriptionFile, housing_final_report);setIsLoaded(true);}} />
+                        <TreeItem itemId={each.split(' ').join('_')} label={each} onClick={()=>{loadData(housing_final_report);}} />
                       </div>
                     );                  
                   })}   
@@ -210,22 +210,14 @@ const imageUrls = [
             </div>
            </div>*/}
           <div class="cardLong margin-10">
-            <Card style={{width:"calc(100% - 10px)", "borderTop": "1px solid rgb(151 151 151)"}}>           
+            <Card style={{width:"calc(100% - 10px)"}}>           
                   <CardContent>
-                      {isLoaded ? (
+                      {(isLoaded && Object.keys(jsonData).length >1)  ? (
                         <>
-                        <div class="flexRow fullWidth">
-                        <div style={{"marginRight":"20px", "marginTop":50, "width":"20%", "height":500, "overflowY":"scroll"}}>            
-                          {/*<SimpleTreeView>
-                            <TreeItem itemId="pageDescription" label="Description">
-                              <div class="flexRow flexStart">
-                                <TreeItem onClick={()=>{setShowMarkdown(true);setHeading('Description');}} itemId={"description_key"} label="Description" />
-                              </div>
-                            </TreeItem>
-                          </SimpleTreeView>*/}        
-
+                        <div class="flexRow fullWidth fullHeight">
+                          <div style={{"marginRight":"20px", "background":"#f9f9f9", "width":"20%", "maxHeight":800, "overflow":"scroll"}}>                       
                           <SimpleTreeView>
-                            <TreeItem itemId="report" label="Final Report">
+                            <TreeItem itemId="report" label="Report">
                               {Object.keys(jsonData).map(each => {
                               return (
                                 <>
@@ -253,9 +245,8 @@ const imageUrls = [
                           </SimpleTreeView>
                         </div>
 
-                        <div style={{"width":"80%", "textAlign":"left"}}>
+                        <div style={{"width":"80%", "textAlign":"left"}}>                          
                         {
-                        isLoaded ? (
                           showChart ? 
                           (
                             <>     
@@ -268,17 +259,20 @@ const imageUrls = [
                             </>
                           ) :
                           (
-                            <p class="textInfo">
-                              <JsonList data={details} />
-                            </p>
-                          )
-                        ) : 
-                        (<><CardSkeleton amount={1} /></>)
+                            <>     
+                            <CardActions disableSpacing>  
+                              <h3 class="borderBottom"> 
+                                <FontAwesomeIcon icon={faPencil} />{heading}
+                              </h3>             
+                            </CardActions>
+                            <JsonList data={details} />
+                            </>
+                          )                       
                         }
                         </div>
                         </div>
                         </>
-              ) : (<><CardSkeleton amount={1} /></>)}
+              ) : ((isLoaded && Object.keys(jsonData).length <1) ? <><p style={{padding:10}}> <FontAwesomeIcon icon={faArrowPointer} />Please select a project</p></> : <><CardSkeleton amount={1} /></>)}
                   </CardContent>    
                 </Card>
           </div>

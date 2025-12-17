@@ -1,27 +1,41 @@
 import React from "react";
 
-const JsonList = ({ data }) => {
+const JsonList = ({ data, keyId }) => {
   if (data === null) {
     return <span>null</span>;
   }
 
   // Primitive values
   if (typeof data !== "object") {
-    return <span>{String(data)}</span>;
+    if (keyId && keyId.toLowerCase() == 'code'){
+      return (<div class="textInfo">
+        <pre>
+          <code>
+            {String(data)}
+          </code>
+        </pre>
+      </div>);
+    }
+    else
+      return <div class="textInfo"><span>{String(data)}</span></div>;
   }
 
   return (
-    <ul>
+    <ul style={{"list-style-type":"none", "padding":0, "margin":0}}>
       {Array.isArray(data)
         ? data.map((item, index) => (
             <li key={index}>
-              <JsonList data={item} />
+              <div class="textInfo">                          
+                <JsonList data={item} keyId={keyId} />
+              </div>
             </li>
           ))
         : Object.entries(data).map(([key, value]) => (
             <li key={key}>
-              <strong>{key}:</strong>{" "}
-              <JsonList data={value} />
+              <span style={{paddingLeft:10, lineHeight: 2}}><strong>{key}:</strong>{" "}</span>
+              <div class="textInfo">
+                <JsonList data={value} keyId={key} />
+              </div>
             </li>
           ))}
     </ul>

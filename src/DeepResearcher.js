@@ -1,24 +1,11 @@
 import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
-import { Send } from 'lucide-react';
-import Dropdown from './Dropdown';
 import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
-import Skeleton from "react-loading-skeleton";
-import Box from '@mui/material/Box';
-import { BarPlot } from '@mui/x-charts/BarChart';
-import { LineHighlightPlot, LinePlot } from '@mui/x-charts/LineChart';
-import { ChartContainer } from '@mui/x-charts/ChartContainer';
-import { AllSeriesType } from '@mui/x-charts/models';
-import { ChartsXAxis } from '@mui/x-charts/ChartsXAxis';
-import { ChartsYAxis } from '@mui/x-charts/ChartsYAxis';
-import { ChartsTooltip } from '@mui/x-charts/ChartsTooltip';
 import CardSkeleton from './CardSkeleton';
-import { ChartsAxisHighlight } from '@mui/x-charts/ChartsAxisHighlight';
-import { faBars, faArrowPointer, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown, faList, faFile } from '@fortawesome/free-solid-svg-icons';
+import { faArrowPointer, faCode, faChartBar} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ChatARM from './ChatARM';
 
-import housing_final_report from './housing_04_11/deepresearch_report.json';
+import housing_final_report from './housing_results/deepresearch_report.json';
 
 import JsonList from './JsonList';
 import ReactMarkdown from 'react-markdown';
@@ -52,7 +39,7 @@ export default function DeepResearcher({ applyActiveLink }) {
 
   return (
     <>
-      <SimpleSnackbar></SimpleSnackbar>
+      {/*<SimpleSnackbar></SimpleSnackbar>*/}
       <div class="flexVertical">
         <div class="flexAround">
           <div className="projectPanel margin-10">
@@ -69,7 +56,7 @@ export default function DeepResearcher({ applyActiveLink }) {
                   {['Housing Data'].map((each) => {                 
                      return (
                       <div>
-                        <TreeItem itemId={each.split(' ').join('_')} label={each} onClick={()=>{loadData(housing_final_report);setIsLoaded(true);}} />
+                        <TreeItem itemId={each.split(' ').join('_')} label={each} onClick={()=>{loadData(housing_final_report);}} />
                       </div>
                     );                 
                   })}   
@@ -91,14 +78,6 @@ export default function DeepResearcher({ applyActiveLink }) {
                         <>
                         <div class="flexRow fullWidth fullHeight">
                           <div style={{"marginRight":"20px", "background":"#f9f9f9", "width":"20%"}}>
-                          {/*<SimpleTreeView>
-                            <TreeItem itemId="pageDescription" label="Description">
-                              <div class="flexRow flexStart">
-                                <TreeItem onClick={()=>{setShowMarkdown(true);setHeading('Description');}} itemId={"description_key"} label="Description" />
-                              </div>
-                            </TreeItem>
-                          </SimpleTreeView>*/}      
-
                           <SimpleTreeView>
                             <TreeItem itemId="report" label="Report">
                               {Object.keys(jsonData).map(each => {
@@ -121,9 +100,7 @@ export default function DeepResearcher({ applyActiveLink }) {
                           </h3>             
                         </CardActions>
                         {!showMarkdown ? <>
-                          <p class="textInfo">
-                            <JsonList data={details} />
-                          </p>
+                          <JsonList data={details} />
                         </> : 
                           <ReactMarkdown children={mrkdown} />            
                         }

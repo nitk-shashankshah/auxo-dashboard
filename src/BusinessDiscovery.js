@@ -107,9 +107,7 @@ export default function BusinessDiscovery({applyActiveLink}) {
                             </h3>             
                           </CardActions>
                           {!showMarkdown ? <>
-                            <p class="textInfo">
-                              <JsonList data={details} />
-                            </p>
+                            <JsonList data={details} keyId="main"/>
                           </> : 
                             <ReactMarkdown children={mrkdown} />            
                           }

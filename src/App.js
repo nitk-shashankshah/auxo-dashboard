@@ -11,6 +11,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Dropdown from './Dropdown';
 import { counter } from '@fortawesome/fontawesome-svg-core';
 import DeepResearcher from './DeepResearcher';
+import MLEngine from './MLEngine';
 import EDAEngine from './EDAEngine';
 import TopNavigation from './TopNavigation';
 
@@ -155,6 +156,7 @@ export default function App() {
                 <Route path="/business" element={<BusinessDiscovery applyActiveLink={applyActiveLink} />} />
                 <Route path="/researcher" element={<DeepResearcher  applyActiveLink={applyActiveLink} />} />
                 <Route path="/eda" element={<EDAEngine applyActiveLink={applyActiveLink} />} />
+                <Route path="/ml" element={<MLEngine applyActiveLink={applyActiveLink} />} />                
             </Routes>                         
         </div>
       </div>

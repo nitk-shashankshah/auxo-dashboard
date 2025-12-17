@@ -22,7 +22,11 @@ const TopNavigation = ({ activeLink, setActiveLink }) => {
                   <li><Link to="/eda">EDA Engine</Link></li>
                   : <li><span style={{"fontWeight": 500, "color": "#7d5204"}}>EDA Engine</span></li>
                 }
-                <li><Link to="/ml">ML Engine</Link></li>
+                {
+                 activeLink !== 'ml' ? 
+                  <li><Link to="/ml">ML Engine</Link></li>
+                  : <li><span style={{"fontWeight": 500, "color": "#7d5204"}}>ML Engine</span></li>
+                }
               {/*<li><Link to="/memory">Memory Bank</Link></li>*/}
             </ul>
         </div>
