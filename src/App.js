@@ -82,12 +82,6 @@ function LeftPanel(){
       </li>
       <li class="iconMenu">
         <Link to="/business" ><FontAwesomeIcon style={{"color" : 'rgba(255,255,255,0.5)',  marginLeft:5, fontSize: 20}}  icon={faList} /></Link>
-      </li>      
-      <li class="iconMenu">    
-        <FontAwesomeIcon icon={faCalendarAlt}  style={{ marginLeft:5, fontSize: 20 }}/>
-      </li>
-      <li class="iconMenu">
-        <FontAwesomeIcon icon={faCoffee}  style={{ marginLeft:5, fontSize: 20 }}/>
       </li>
     </ul>}
   </div>
