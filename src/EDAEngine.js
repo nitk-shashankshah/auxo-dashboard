@@ -152,8 +152,7 @@ const imageUrls = [
           <div className="projectPanel margin-10">
           <Card style={{width:"calc(100%)"}}>           
             <CardContent>          
-            {
-            isLoaded ? (
+            {           
             <>    
               <h5 style={{fontWeight:300, marginLeft: 10}}> 
                 <FontAwesomeIcon icon={faCode} /> EDA Engine
@@ -169,9 +168,7 @@ const imageUrls = [
                   })}   
                 </TreeItem>
               </SimpleTreeView>                     
-            </>
-            ) : 
-            (<><CardSkeleton amount={1} /></>)
+            </>           
             }
 </CardContent>
 </Card>
