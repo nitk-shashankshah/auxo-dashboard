@@ -276,7 +276,6 @@ pre {
 }
 
 .borderTop{
-  border-top:1px solid #e7e7e7;
   padding-top:10px;
 }
 
@@ -284,6 +283,14 @@ pre {
   width:100%;
   min-height: 100px;
   clear: both;
+}
+
+.fullHeight{
+  height:100%;
+}
+
+.MuiPaper-root{
+  height:100%;
 }
 
 .topNavigation ul {
@@ -353,12 +360,12 @@ pre {
   word-wrap: break-word;
   white-space: pre-wrap;
   overflow: hidden;
-  inline-size: 100%;  
+  inline-size: 98%;  
 }
 
 .textInfo ul{
   overflow: hidden;
-  inline-size: 100%;  
+  inline-size: 97%;  
 }
 
 .codeEditor{

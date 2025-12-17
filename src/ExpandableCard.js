@@ -48,7 +48,7 @@ export default function RecipeReviewCard({txt, heading, myheight}) {
   };
 
   return (
-    <Card style={{"borderTop": "1px solid rgb(151 151 151)"}}>    
+    <Card>    
       <CardActions disableSpacing>  
         <h3 class="borderBottom" style={{marginLeft:15}}> 
             {heading.split('_').map(each => each.charAt(0).toUpperCase() + each.slice(1)).join(' ')}
