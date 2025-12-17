@@ -16,7 +16,6 @@ const TopNavigation = ({ activeLink, setActiveLink }) => {
                   <li><Link to="/researcher">Deep Researcher</Link></li>
                   : <li><span style={{"fontWeight": 500, "color": "#7d5204"}}>Deep Researcher</span></li>
                 }
-                <li><Link to="/discovery">Data Discovery and Master Data Preperation</Link></li>
                 {
                   activeLink !== 'eda' ? 
                   <li><Link to="/eda">EDA Engine</Link></li>
