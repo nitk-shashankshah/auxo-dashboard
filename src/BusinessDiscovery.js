@@ -5,7 +5,7 @@ import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
 import Skeleton from "react-loading-skeleton";
 import CardSkeleton from './CardSkeleton';
-import { faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown, faList, faFile } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown, faList, faFile, faArrowPointer } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ChatARM from './ChatARM';
 
@@ -20,7 +20,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 
-export default function BusinessDiscovery() {
+export default function BusinessDiscovery({applyActiveLink}) {
   const [details, setDetails] = useState({});
   const [jsonData, setJsonData] = useState({});
 
@@ -39,6 +39,8 @@ export default function BusinessDiscovery() {
         setMrkdown(text);       
     });*/
   }
+
+  applyActiveLink('business');
 
   return (
     <>
@@ -115,7 +117,7 @@ export default function BusinessDiscovery() {
                           </div>
                         </div>
                         </>
-                      ) : ((isLoaded && Object.keys(jsonData).length <1) ? <><p style={{padding:10}}>Please select a project</p></> : <><CardSkeleton amount={1} /></>)}
+                      ) : ((isLoaded && Object.keys(jsonData).length <1) ? <><p style={{padding:10}}> <FontAwesomeIcon icon={faArrowPointer} />Please select a project</p></> : <><CardSkeleton amount={1} /></>)}
                   </CardContent>    
                 </Card>
           </div>

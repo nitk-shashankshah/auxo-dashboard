@@ -68,7 +68,7 @@ import hyp_a85e0dfc_6_GrLivArea_zscore from './housing_results/my_eda_analysis/p
 import hyp_iter2_f6815b97_9_garage_missing_boxplot from './housing_results/my_eda_analysis/plots/hyp_iter2_f6815b97_9_garage_missing_boxplot.png'; 
 import hyp_a85e0dfc_6_LotArea_iqr from './housing_results/my_eda_analysis/plots/hyp_a85e0dfc_6_LotArea_iqr.png'; 
 
-export default function EDAEngine() {
+export default function EDAEngine({applyActiveLink}) {
   const [details, setDetails] = useState({});
   const [jsonData, setJsonData] = useState({});
 
@@ -130,6 +130,8 @@ const imageUrls = [
 {"data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_a85e0dfc_6_GrLivArea_zscore.png',"imageComponent":hyp_a85e0dfc_6_GrLivArea_zscore},
 {"data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_iter2_f6815b97_9_garage_missing_boxplot.png',"imageComponent":hyp_iter2_f6815b97_9_garage_missing_boxplot},
 {"data":'hyp_00bda110_13_yearbuilt_vs_saleprice.csv', "url":'./housing_results/my_eda_analysis/plots/hyp_a85e0dfc_6_LotArea_iqr.png',"imageComponent":hyp_a85e0dfc_6_LotArea_iqr}];
+
+  applyActiveLink('eda');
 
   function loadData(fl_name, report_fl) {   
     setJsonData(report_fl);

@@ -12,6 +12,7 @@ import Dropdown from './Dropdown';
 import { counter } from '@fortawesome/fontawesome-svg-core';
 import DeepResearcher from './DeepResearcher';
 import EDAEngine from './EDAEngine';
+import TopNavigation from './TopNavigation';
 
 function MainPanel({toggleExpand, count, isExpanded, toggleDropDown}){
   const [isLoaded, setIsLoaded] = useState(0);
@@ -91,6 +92,7 @@ export default function App() {
   const [isExpanded, setIsExpanded] = useState(1);
   const [countUser, setCountUser] = useState(false);
   const [count, setCount] = useState(false);
+  const [activeLink, setActiveLink] = useState('');
 
   function toggleDropDown(val) {
     setCount(val);
@@ -100,11 +102,13 @@ export default function App() {
     setCountUser(val);
   }
 
-
   function toggleExpanded(isExpanded){
     setIsExpanded(isExpanded => !isExpanded);
   };
 
+  function applyActiveLink(myLink){
+    setActiveLink(myLink);
+  };
 
   const [menuIcons, setMenuIcons] = useState([{
     'name':'Home',
@@ -143,23 +147,14 @@ export default function App() {
           event.stopPropagation();
         }}>
         <div class="flexRow">
-            <div class="topNavigation">
-            <ul>
-              <li><Link to="/business">Business Discovery</Link></li>
-              <li><Link to="/researcher">Deep Researcher</Link></li>
-              <li><Link to="/discovery">Data Discovery and Master Data Preperation</Link></li>
-              <li><Link to="/eda">EDA Engine</Link></li>
-              <li><Link to="/ml">ML Engine</Link></li>
-              {/*<li><Link to="/memory">Memory Bank</Link></li>*/}
-            </ul>
-            </div>        
+            <TopNavigation activeLink={activeLink}></TopNavigation>                    
         </div>
         <div class="flexRow">
             <Routes>
                 <Route path="/" element={<MainPanel toggleExpand={toggleExpanded} toggleDropDown={toggleDropDown} count={count} isExpanded = {isExpanded} />} />
-                <Route path="/business" element={<BusinessDiscovery />} />
-                <Route path="/researcher" element={<DeepResearcher />} />
-                <Route path="/eda" element={<EDAEngine />} />
+                <Route path="/business" element={<BusinessDiscovery applyActiveLink={applyActiveLink} />} />
+                <Route path="/researcher" element={<DeepResearcher  applyActiveLink={applyActiveLink} />} />
+                <Route path="/eda" element={<EDAEngine applyActiveLink={applyActiveLink} />} />
             </Routes>                         
         </div>
       </div>

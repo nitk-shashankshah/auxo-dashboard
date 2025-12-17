@@ -14,15 +14,11 @@ import { ChartsYAxis } from '@mui/x-charts/ChartsYAxis';
 import { ChartsTooltip } from '@mui/x-charts/ChartsTooltip';
 import CardSkeleton from './CardSkeleton';
 import { ChartsAxisHighlight } from '@mui/x-charts/ChartsAxisHighlight';
-import { faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown, faList, faFile } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faArrowPointer, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown, faList, faFile } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ChatARM from './ChatARM';
 
-import wine_final_report from './housing_04_11/deepresearch_report.json';
-import wine_descriptionFile from './housing_04_11/deepresearch_report.md';
-
-import housing_final_report from './housing_04_11/deepresearch_report.md';
-import housing_descriptionFile from './housing_04_11/deepresearch_report.json';
+import housing_final_report from './housing_04_11/deepresearch_report.json';
 
 import JsonList from './JsonList';
 import ReactMarkdown from 'react-markdown';
@@ -32,24 +28,27 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 
-export default function DeepResearcher() {
+export default function DeepResearcher({ applyActiveLink }) {
   const [details, setDetails] = useState({});
   const [jsonData, setJsonData] = useState({});
 
   const [heading, setHeading] = useState('Description');
   const [showMarkdown, setShowMarkdown] = useState(true);
   const [mrkdown, setMrkdown] = useState('');
-  const [isLoaded, setIsLoaded] = useState(1);
+  const [isLoaded, setIsLoaded] = useState(true);
 
-  function loadData(fl_name, report_fl) {   
+  function loadData(report_fl) {
     setJsonData(report_fl);
-    fetch(fl_name).then((response) => response.text()).then((text) => {
-        setMrkdown(text);
-        setTimeout(() => {
-          setIsLoaded(true);
-        },1000);
-    });
+    setIsLoaded(false);
+    setTimeout(() => {
+      setIsLoaded(true);
+    },1000);
+    /*fetch(fl_name).then((response) => response.text()).then((text) => {
+        setMrkdown(text);       
+    });*/
   }
+
+  applyActiveLink('researcher');
 
   return (
     <>
@@ -58,29 +57,21 @@ export default function DeepResearcher() {
         <div class="flexAround">
           <div className="projectPanel margin-10">
           <Card style={{width:"calc(100%)"}}>           
-            <CardContent>          
+            <CardContent>
             {
-            isLoaded ? (
+            true ? (
             <>    
               <h5 style={{fontWeight:300, marginLeft: 10}}> 
                 <FontAwesomeIcon icon={faCode} /> Deep Researcher
               </h5>
               <SimpleTreeView expandedItems={["grid"]}>   
                 <TreeItem itemId="grid" label="Available Projects">
-                  {['Wine Classification', 'Housing Data'].map((each) => {
-                  if (each == 'Wine Classification'){
-                    return (
-                      <div class="flexRow flexStart">
-                        <TreeItem itemId={each.split(' ').join('_')} label={each} onClick={()=>{loadData(wine_descriptionFile, wine_final_report);setIsLoaded(true);}} />
-                      </div>                                                                   
-                    );
-                  } else {
+                  {['Housing Data'].map((each) => {                 
                      return (
                       <div>
-                        <TreeItem itemId={each.split(' ').join('_')} label={each} onClick={()=>{loadData(housing_descriptionFile, housing_final_report);setIsLoaded(true);}} />
+                        <TreeItem itemId={each.split(' ').join('_')} label={each} onClick={()=>{loadData(housing_final_report);setIsLoaded(true);}} />
                       </div>
-                    );
-                  }
+                    );                 
                   })}   
                 </TreeItem>
               </SimpleTreeView>                     
@@ -92,8 +83,59 @@ export default function DeepResearcher() {
 </Card>
 </div>
 
-<div class="flexVertical">
-            <div class="margin-10 flexRow">
+<div class="flexVertical">           
+          <div class="cardLong margin-10">
+            <Card style={{width:"calc(100% - 10px)"}}>           
+                  <CardContent>
+                      {(isLoaded && Object.keys(jsonData).length >1)  ? (
+                        <>
+                        <div class="flexRow fullWidth fullHeight">
+                          <div style={{"marginRight":"20px", "background":"#f9f9f9", "width":"20%"}}>
+                          {/*<SimpleTreeView>
+                            <TreeItem itemId="pageDescription" label="Description">
+                              <div class="flexRow flexStart">
+                                <TreeItem onClick={()=>{setShowMarkdown(true);setHeading('Description');}} itemId={"description_key"} label="Description" />
+                              </div>
+                            </TreeItem>
+                          </SimpleTreeView>*/}      
+
+                          <SimpleTreeView>
+                            <TreeItem itemId="report" label="Report">
+                              {Object.keys(jsonData).map(each => {
+                              return (
+                                <>
+                                  <div class="flexRow flexStart">
+                                    <TreeItem onClick={()=>{setShowMarkdown(false);setDetails(jsonData[each]);setHeading(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each);}} itemId={"finalReport_"+each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
+                                  </div>                    
+                                </>
+                              );
+                              })}   
+                            </TreeItem>
+                          </SimpleTreeView>
+                        </div>
+
+                        <div style={{"width":"80%", "textAlign":"left"}}>          
+                        <CardActions disableSpacing>  
+                          <h3 class="borderBottom"> 
+                              <FontAwesomeIcon icon={faChartBar} />{heading}
+                          </h3>             
+                        </CardActions>
+                        {!showMarkdown ? <>
+                          <p class="textInfo">
+                            <JsonList data={details} />
+                          </p>
+                        </> : 
+                          <ReactMarkdown children={mrkdown} />            
+                        }
+                        </div>
+                        </div>
+                        </>
+              ) : ((isLoaded && Object.keys(jsonData).length <1) ? <><p style={{padding:10}}> <FontAwesomeIcon icon={faArrowPointer} />Please select a project</p></> : <><CardSkeleton amount={1} /></>)}
+                  </CardContent>    
+                </Card>
+          </div>
+
+          <div class="margin-10 flexRow">
             
             <div style={{width:"33%"}}>
              {
@@ -125,63 +167,7 @@ export default function DeepResearcher() {
               </div>
             </div>
            </div>
-          <div class="cardLong margin-10">
-            <Card style={{width:"calc(100% - 10px)", "borderTop": "1px solid rgb(151 151 151)"}}>           
-                  <CardContent>
-                      {isLoaded ? (
-                        <>
-                        <div class="flexRow fullWidth">
-                        <div style={{"marginRight":"20px", "marginTop":50, "width":"20%"}}>            
-                          <SimpleTreeView>
-                            <TreeItem itemId="pageDescription" label="Description">
-                              <div class="flexRow flexStart">
-                                <TreeItem onClick={()=>{setShowMarkdown(true);setHeading('Description');}} itemId={"description_key"} label="Description" />
-                              </div>
-                            </TreeItem>
-                          </SimpleTreeView>           
 
-                          <SimpleTreeView>
-                            <TreeItem itemId="report" label="Final Report">
-                              {Object.keys(jsonData).map(each => {
-                              return (
-                                <>
-                                  <div class="flexRow flexStart">
-                                    <TreeItem onClick={()=>{setShowMarkdown(false);setDetails(jsonData[each]);setHeading(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each);}} itemId={"finalReport_"+each} label={(each.split("_").length ? (each.split("_").map(txt => (txt.split("_")[0].charAt(0).toUpperCase() + txt.split("_")[0].slice(1))).join(' ')) : each)} />
-                                  </div>                    
-                                </>
-                              );
-                              })}   
-                            </TreeItem>
-                          </SimpleTreeView>
-                        </div>
-
-                        <div style={{"width":"80%", "textAlign":"left"}}>
-                        {
-                        isLoaded ? (
-                        <>     
-                        <CardActions disableSpacing>  
-                          <h3 class="borderBottom"> 
-                              <FontAwesomeIcon icon={faChartBar} />{heading}
-                          </h3>             
-                        </CardActions>
-                        {!showMarkdown ? <>
-                          <p class="textInfo">
-                            <JsonList data={details} />
-                          </p>
-                        </> : 
-                          <ReactMarkdown children={mrkdown} />            
-                        }
-                        </>
-                        ) : 
-                        (<><CardSkeleton amount={1} /></>)
-                        }
-                        </div>
-                        </div>
-                        </>
-              ) : (<><CardSkeleton amount={1} /></>)}
-                  </CardContent>    
-                </Card>
-          </div>
           </div>
         </div>       
       </div>
