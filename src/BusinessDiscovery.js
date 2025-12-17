@@ -5,7 +5,7 @@ import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
 import Skeleton from "react-loading-skeleton";
 import CardSkeleton from './CardSkeleton';
-import { faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown, faList, faFile, faArrowPointer } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown, faList, faFile, faArrowPointer, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ChatARM from './ChatARM';
 
@@ -44,7 +44,6 @@ export default function BusinessDiscovery({applyActiveLink}) {
 
   return (
     <>
-      {/*<SimpleSnackbar></SimpleSnackbar>*/}
       <div class="flexVertical">
         <div class="flexAround">
           <div className="projectPanel margin-10">

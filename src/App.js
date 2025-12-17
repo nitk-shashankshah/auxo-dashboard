@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useState , Fragment} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faBell, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown, faList, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBell,faArrowUp, faCoffee, faFolder, faSearch, faUser, faBackspace, faCalendarAlt, faPaperclip, faAnchor, faAlarmClock, faUmbrella, faPaintbrush, faHand, faHandPointer, faTree, faCaretDown, faCode, faChartBar, faSquareRootVariable, faHandPointDown, faCaretUp, faCaretRight, faArrowRight, faArrowDown, faAngleRight, faAngleDown, faList, faPlus } from '@fortawesome/free-solid-svg-icons';
 import ChatGPTInterface from './ChatGPTInterface';
 import 'react-loading-skeleton/dist/skeleton.css'
 import UserLogin from './UserLogin';
@@ -99,6 +99,15 @@ export default function App() {
     setCount(val);
   }
 
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function scrollToBottom() {
+    window.scrollTo(0, (window.document.body.scrollHeight - window.innerHeight));
+  }
+
+
   function toggleDropDownUser(val) {
     setCountUser(val);
   }
@@ -162,6 +171,14 @@ export default function App() {
       </div>
       </BrowserRouter>
     </div>
+
+      <button class="go-to-top" onClick={scrollToTop}>
+        <FontAwesomeIcon icon={faArrowUp} /> 
+      </button>
+
+      <button class="go-to-bottom" onClick={scrollToBottom}>
+        <FontAwesomeIcon icon={faArrowDown} /> 
+      </button>
     </>    
   );
 }
