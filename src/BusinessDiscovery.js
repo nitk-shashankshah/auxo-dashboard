@@ -82,7 +82,7 @@ export default function BusinessDiscovery({applyActiveLink}) {
                       (isLoaded && Object.keys(jsonData).length >1) ? (
                         <>
                         <div class="flexRow fullWidth fullHeight">
-                          <div style={{"marginRight":"20px", "background":"#f9f9f9", "width":"20%"}}>
+                          <div style={{"marginRight":"20px", "background":"#f9f9f9", "width":"20%", "paddingTop":20}}>
                             <SimpleTreeView>
                               <TreeItem itemId="report" label="Report" expandedItems>
                                 {Object.keys(jsonData).map(each => {

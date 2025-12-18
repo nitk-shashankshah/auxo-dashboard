@@ -162,6 +162,7 @@ export default function App() {
         <div class="flexRow">
             <Routes>
                 <Route path="/" element={<MainPanel toggleExpand={toggleExpanded} toggleDropDown={toggleDropDown} count={count} isExpanded = {isExpanded} />} />
+                <Route path="/auxo-dashboard" element={<MainPanel toggleExpand={toggleExpanded} toggleDropDown={toggleDropDown} count={count} isExpanded = {isExpanded} />} />
                 <Route path="/business" element={<BusinessDiscovery applyActiveLink={applyActiveLink} />} />
                 <Route path="/researcher" element={<DeepResearcher  applyActiveLink={applyActiveLink} />} />
                 <Route path="/eda" element={<EDAEngine applyActiveLink={applyActiveLink} />} />

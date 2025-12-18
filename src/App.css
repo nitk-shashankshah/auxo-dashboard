@@ -5,7 +5,7 @@
    min-height: calc(100vh);
    border-radius: 10px 0px 0px 0px;
    box-sizing: border-box;
-   border-top: 5px solid #2f8854; 
+   border-top: 2px solid #2f8854; 
    border-radius: 10px 0px 0px 0px; 
 }
 
@@ -321,6 +321,7 @@ pre {
 .topNavigation{
   width: 100%;
   height: 35px;
+  border-top: 1px solid #33332a;
 }
 
 .iconMenu{

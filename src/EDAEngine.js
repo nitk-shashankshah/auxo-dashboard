@@ -212,7 +212,7 @@ const imageUrls = [
                       {(isLoaded && Object.keys(jsonData).length >1)  ? (
                         <>
                         <div class="flexRow fullWidth fullHeight">
-                          <div style={{"marginRight":"20px", "background":"#f9f9f9", "width":"20%", "maxHeight":800, "overflow":"scroll"}}>                       
+                          <div style={{"marginRight":"20px", "background":"#f9f9f9", "width":"20%", "paddingTop":20, "maxHeight":800, "overflow":"scroll"}}>                       
                           <SimpleTreeView>
                             <TreeItem itemId="report" label="Report">
                               {Object.keys(jsonData).map(each => {
